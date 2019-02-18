@@ -13,12 +13,27 @@ public class UserDTO implements Serializable{
 	private String userName;                
 	private String ini;                 
 	private List<String> roles;
+	private String cpr;
+	private String password;
 	//TODO Add relevant fields
 
 	// ---------------------- Constructor ----------------------
 
 	public UserDTO() {
 		this.roles = new ArrayList<>();
+	}
+
+	public UserDTO (int userId, String userName, String ini, String cpr, String password, String role) {
+		this.userId = userId;
+		this.userName = userName;
+		this.ini = ini;
+		this.cpr = cpr;
+		this.password = password;
+
+		//Adds role.
+		this.roles = new ArrayList<>();
+		roles.add(role);
+
 	}
 
 	// ---------------------- Getters and Setters ----------------------
