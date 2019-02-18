@@ -6,17 +6,23 @@ import java.util.List;
 
 public class UserDTO implements Serializable{
 
+	// ---------------------- Fields ----------------------
+
 	private static final long serialVersionUID = 4545864587995944260L;
 	private int	userId;                     
 	private String userName;                
 	private String ini;                 
 	private List<String> roles;
 	//TODO Add relevant fields
-	
+
+	// ---------------------- Constructor ----------------------
+
 	public UserDTO() {
 		this.roles = new ArrayList<>();
 	}
-	
+
+	// ---------------------- Getters and Setters ----------------------
+
 	public int getUserId() {
 		return userId;
 	}
@@ -35,14 +41,15 @@ public class UserDTO implements Serializable{
 	public void setIni(String ini) {
 		this.ini = ini;
 	}
-
 	public List<String> getRoles() {
 		return roles;
 	}
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
-	
+
+	// ---------------------- Public Method ----------------------
+
 	public void addRole(String role){
 		this.roles.add(role);
 	}
