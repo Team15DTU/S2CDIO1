@@ -15,7 +15,7 @@ public class FileDB {
      */
 
     private String filePath;
-    private HashMap<String, UserDTO> fileHashMap;
+    private HashMap<Integer, UserDTO> fileHashMap;
     
     /*
     ----------------------- Constructor -------------------------
@@ -25,16 +25,33 @@ public class FileDB {
 
         fileHashMap = new HashMap<>();
 
+        setupHashMap(fileName, fileHashMap);
     }
     
     /*
     ------------------------ Properties -------------------------
      */
 
-    // <editor-folder desc="Properties"
+    // region Properties
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public HashMap<Integer, UserDTO> getFileHashMap() {
+        return fileHashMap;
+    }
+
+    public void setFileHashMap(HashMap<Integer, UserDTO> fileHashMap) {
+        this.fileHashMap = fileHashMap;
+    }
 
 
-    // </editor-folder>
+    // endregion
     
     /*
     ---------------------- Public Methods -----------------------
@@ -46,18 +63,19 @@ public class FileDB {
     ---------------------- Support Methods ----------------------
      */
 
-    private void setupHashMap (String fileName) {
+    private void setupHashMap (String fileName, HashMap<Integer, UserDTO> fileHashMap) {
         try {
             filePath = getClass().getClassLoader().getResource(fileName).getPath().replace("%20", " ");
 
             // Reads file into HashMap.
-            readFileIntoHashMap();
-        } catch (FileNotFoundException e) {
+            readFileIntoHashMap(filePath, fileHashMap);
+        } catch (NullPointerException e) {
 
+            System.out.println("Der blev ikke fundet nogen fil i klassen \"FileDB.java\" metoden setupHashmap()");
            }
     }
 
-    private void readFileIntoHashMap() {
+    private void readFileIntoHashMap(String filePath, HashMap<Integer, UserDTO> hashMap) {
 
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
 
@@ -65,9 +83,9 @@ public class FileDB {
 
             while ((line = bufferedReader.readLine()) != null) {
 
-                String[] tempKeyAndValue = line.split(";");
+                String[] userInfoArray = line.split(";");
 
-                infoArrayIntoHashMap(fileHashMap,tempKeyAndValue);
+                infoArrayIntoHashMap(hashMap,userInfoArray);
             }
         } catch(FileNotFoundException e){
             e.printStackTrace();
@@ -76,13 +94,17 @@ public class FileDB {
         }
     }
 
-    private void infoArrayIntoHashMap (HashMap<String,UserDTO> hashMap, String[] stringInfoArray) {
-        UserDTO tempUser = new UserDTO(Integer.parseInt(stringInfoArray[0]),stringInfoArray[1],stringInfoArray[2],
+    private void infoArrayIntoHashMap (HashMap<Integer,UserDTO> hashMap, String[] stringInfoArray) {
+
+        // Fixme: Få lortet til at loade en string til en Int
+        String tempUserID = stringInfoArray[0];
+        int tempUserID_int = Integer.parseInt(tempUserID);
+
+        UserDTO tempUser = new UserDTO(tempUserID_int,stringInfoArray[1],stringInfoArray[2],
                     stringInfoArray[3], stringInfoArray[4], stringInfoArray[5]);
 
-        hashMap.put(stringInfoArray[1], tempUser);
+        hashMap.put(Integer.parseInt(stringInfoArray[0]), tempUser);
 
     }
 
-    public void
 }
