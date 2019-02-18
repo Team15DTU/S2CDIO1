@@ -16,7 +16,7 @@ public class TUI {
 
 
     public static void MenuBesked() {
-        System.out.println("Enter a number for witch action you want to take");
+        System.out.println("Enter a number for which action you want to take");
         System.out.println("1. Add new user");
         System.out.println("2. Show users");
         System.out.println("3. Opdate user");
