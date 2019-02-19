@@ -8,8 +8,6 @@ import java.util.List;
 
 public class UserDAO implements IUserDAO {
 
-    List<UserDTO> userList = new ArrayList<UserDTO>();
-
     @Override
     public UserDTO getUser(int userId) throws DALException {
         return null;
@@ -17,16 +15,12 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public List<UserDTO> getUserList() throws DALException {
-        System.out.println(userList.size());
-        return userList;
+        return null;
     }
 
     @Override
     public void createUser(UserDTO user) throws DALException {
-        userList.add(user);
-        System.out.println("User is added");
-        System.out.println(userList.get(0).getUserName());
-        System.out.println(userList.size());
+
     }
 
     @Override
