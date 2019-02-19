@@ -17,7 +17,7 @@ public class DB implements IUserDAO {
 	public UserDTO getUser(int userId) throws DALException
 	{
 		//TODO:
-		c.Connect("");
+		c.Connect("SELECT * FROM CDIO1 WHERE userId="+userId, "");
 
 		return null;
 	}
@@ -33,7 +33,7 @@ public class DB implements IUserDAO {
 	public void createUser(UserDTO user) throws DALException
 	{
 		//TODO:
-		c.statement.executeUpdate("insert into test values (" + id + "," + "'" + text + "'" + ")");
+
 	}
 	
 	@Override
