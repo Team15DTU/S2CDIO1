@@ -1,13 +1,14 @@
 package dal;
 
-import dto.UserDTO;
+import data.dal.IUserDAO;
+import data.dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IUserDAO {
 
-    ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
+    List<UserDTO> userList = new ArrayList<UserDTO>();
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
@@ -16,12 +17,16 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public List<UserDTO> getUserList() throws DALException {
-        return null;
+        System.out.println(userList.size());
+        return userList;
     }
 
     @Override
     public void createUser(UserDTO user) throws DALException {
         userList.add(user);
+        System.out.println("User is added");
+        System.out.println(userList.get(0).getUserName());
+        System.out.println(userList.size());
     }
 
     @Override
@@ -47,6 +52,10 @@ public class UserDAO implements IUserDAO {
         }
 
     }
+
+
+
+
 
 
 

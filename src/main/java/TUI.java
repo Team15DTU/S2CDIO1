@@ -1,5 +1,10 @@
-import dto.UserDTO;
 
+import dal.UserDAO;
+import data.dal.IUserDAO;
+import data.dto.UserDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TUI {
@@ -31,9 +36,11 @@ public class TUI {
     public static void TheSwitch(int choice) {
 
         Scanner scan = new Scanner(System.in);
+        UserDAO userDAO = new UserDAO();
+
 
         switch (choice) {
-            case 1: //some thing
+            case 1:
                 System.out.println("You entered 1, to add a new user");
                 System.out.println("Enter userID");
                 int userID = scan.nextInt();
@@ -42,12 +49,31 @@ public class TUI {
                 String userName = scan.nextLine();
                 System.out.println("Enter user ini");
                 String ini = scan.nextLine();
+                System.out.println("Enter CPR number");
+                String cPR = scan.nextLine();
                 System.out.println("Enter user role");
                 String userRole = scan.nextLine();
+                UserDTO user = new UserDTO(userID,userName,ini, cPR, "Password",userRole );
+                try {
+                    userDAO.createUser(user);
+                } catch (IUserDAO.DALException ex) {
+                    System.out.println(ex);
+                }
 
                 break;
             case 2: //some thing
-                System.out.println("du tastede 2, kode skal ind her");
+                List<UserDTO> list = new ArrayList<>();
+
+                try {
+                    list = userDAO.getUserList();
+                } catch (IUserDAO.DALException ex) {
+                    System.out.println(ex);
+                    System.out.println(list.size());
+                }
+
+                System.out.println(list.get(0).getUserName());
+
+
                 break;
             case 3: //some thing
                 System.out.println("du tastede 3, kode skal ind her");
