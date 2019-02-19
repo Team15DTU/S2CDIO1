@@ -1,3 +1,5 @@
+import dto.UserDTO;
+
 import java.util.Scanner;
 
 public class TUI {
@@ -14,6 +16,7 @@ public class TUI {
 
     }
 
+    // Menu beskederne
 
     public static void MenuBesked() {
         System.out.println("Enter a number for which action you want to take");
@@ -23,11 +26,25 @@ public class TUI {
         System.out.println("4. Remove user");
     }
 
+    //Menu switchen
+
     public static void TheSwitch(int choice) {
+
+        Scanner scan = new Scanner(System.in);
 
         switch (choice) {
             case 1: //some thing
-                System.out.println("du tastede 1, kode skal ind her");
+                System.out.println("You entered 1, to add a new user");
+                System.out.println("Enter userID");
+                int userID = scan.nextInt();
+                scan.nextLine(); //gør så den ikke hopper over "enter user name" inputtet !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                System.out.println("Enter user name");
+                String userName = scan.nextLine();
+                System.out.println("Enter user ini");
+                String ini = scan.nextLine();
+                System.out.println("Enter user role");
+                String userRole = scan.nextLine();
+
                 break;
             case 2: //some thing
                 System.out.println("du tastede 2, kode skal ind her");
