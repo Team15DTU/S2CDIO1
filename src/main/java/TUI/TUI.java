@@ -45,7 +45,7 @@ public class TUI {
                 SL.AddUserLogic();
                 break;
             case 2: //some thing
-
+                SL.Print();
                 break;
             case 3: //some thing
                 System.out.println("du tastede 3, kode skal ind her");

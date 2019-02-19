@@ -34,6 +34,18 @@ public class SwitchLogic {
 
     }
 
+    public static void Print() {
+        Scanner scan = new Scanner(System.in);
+        UserDAO dao = new UserDAO();
+
+        try {
+            System.out.println(dao.getUserList().get(0).getUserId());
+        } catch (IUserDAO.DALException ex) {
+            System.out.println(ex);
+        }
+
+    }
+
 
 
 
