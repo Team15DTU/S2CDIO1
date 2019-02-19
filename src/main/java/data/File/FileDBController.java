@@ -1,5 +1,7 @@
 package data.File;
 
+import data.dto.UserDTO;
+
 /**
  * @author Rasmus Sander Larsen
  */
@@ -39,8 +41,32 @@ public class FileDBController {
     /*
     ---------------------- Public Methods -----------------------
      */
-    
-    
+
+    /**
+     * Adds a UserDTO to the HashMap in FileDB.java on a keyvalue matching the UserDTO.UserID.
+     * @param userDTO the User that is added.
+     */
+    public void addUserToFileDBHashMap (UserDTO userDTO) {
+
+        fileDB.getFileHashMap().put(userDTO.getUserId(),userDTO);
+
+    }
+
+    public UserDTO showUserFromFileDBHashMap (int userID) {
+
+        return fileDB.getFileHashMap().get(userID);
+
+    }
+
+    public void updateUserInFileDBHashMap () {
+
+    }
+
+    public void removeUserFromFileDBHashMap (int userID) {
+
+        fileDB.getFileHashMap().remove(userID);
+
+    }
     
     /*
     ---------------------- Support Methods ----------------------
