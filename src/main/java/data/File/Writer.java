@@ -59,10 +59,12 @@ public class Writer {
                         roleBuilder.append(hashMap.get(i).getRoles().get(j));
                     }
                 }
-                tempUserInfo.append(roleBuilder.toString());
+                tempUserInfo.append(roleBuilder.toString() + "\n");
 
                 bufferedWriter.write(tempUserInfo.toString());
             }
+
+            System.out.println("Så er alle UserDTO'er fra HashMap'et skrevet til filen....");
 
         } catch (IOException e) {
             e.printStackTrace();
