@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Conn {
-    public static void main(String[] args) {
+    public void Connect(String stmt, String stmt2){
         String valg;
         Scanner scanner = new Scanner(System.in);
         boolean forkert;
@@ -17,7 +17,7 @@ public class Conn {
             Statement statement = connection.createStatement();
             //statement.executeQuery("use s185114");
             do {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM test");
+                ResultSet resultSet = statement.executeQuery(stmt);
                 System.out.println("Got resultset from database:");
                 while (resultSet.next()){
                     System.out.println(resultSet.getString(1) + ": " + resultSet.getString(2));
