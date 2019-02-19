@@ -4,6 +4,7 @@ import data.dto.UserDTO;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -15,16 +16,14 @@ public class Writer {
     -------------------------- Fields --------------------------
      */
 
-    private String filePath;
+    private String fileName;
     
     /*
     ----------------------- Constructor -------------------------
      */
     
     public Writer (String fileName) {
-        setupFilePath(fileName);
-
-
+        this.fileName = fileName;
     }
     
     /*
@@ -42,25 +41,35 @@ public class Writer {
     
     public void writeToFile (HashMap<Integer, UserDTO> hashMap) {
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath) )) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName) )) {
 
+            for (int i = 0; i < hashMap.size(); i++) {
+                StringBuilder tempUserInfo = new StringBuilder();
+                StringBuilder roleBuilder = new StringBuilder();
 
+                tempUserInfo.append(hashMap.get(i).getUserId() + ";");
+                tempUserInfo.append(hashMap.get(i).getUserName() + ";");
+                tempUserInfo.append(hashMap.get(i).getIni() + ";");
+                tempUserInfo.append(hashMap.get(i).getCpr() + ";");
+                tempUserInfo.append(hashMap.get(i).getPassword() + ";");
+                for (int j = 0; j < hashMap.get(i).getRoles().size(); j++){
+                    if (j!=hashMap.get(i).getRoles().size()) {
+                        roleBuilder.append(hashMap.get(i).getRoles().get(j) + ",");
+                    } else {
+                        roleBuilder.append(hashMap.get(i).getRoles().get(j));
+                    }
+                }
+                tempUserInfo.append(roleBuilder.toString());
 
+                bufferedWriter.write(tempUserInfo.toString());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
     /*
     ---------------------- Support Methods ----------------------
      */
-
-    private void setupFilePath (String fileName) {
-        try {
-            filePath = getClass().getClassLoader().getResource(fileName).getPath().replace("%20", " ");
-
-        } catch (NullPointerException e) {
-
-            System.out.println("Der blev ikke fundet nogen fil i klassen \"FileDB.java\" metoden setupHashmap()");
-        }
-    }
-
 }
