@@ -9,9 +9,8 @@ import java.util.Scanner;
 public class SwitchLogic {
 
     //Click 1:
-    public static void AddUserLogic() {
+    public static void AddUserLogic(UserDAO dao) {
         Scanner scan = new Scanner(System.in);
-        UserDAO dao = new UserDAO();
 
         System.out.println("You entered 1, to add a new user");
         System.out.println("Enter userID");
@@ -34,9 +33,8 @@ public class SwitchLogic {
 
     }
 
-    public static void Print() {
+    public static void Print(UserDAO dao) {
         Scanner scan = new Scanner(System.in);
-        UserDAO dao = new UserDAO();
 
         try {
             System.out.println(dao.getUserList().get(0).getUserId());
