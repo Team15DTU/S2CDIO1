@@ -90,20 +90,45 @@ public class DB implements IUserDAO {
 	}
 	
 	@Override
-	public void createUser(UserDTO user) {
-		//TODO:
+	public void createUser(UserDTO user)throws DALException {
+	    //TODO håber at user er en kommasepereret liste med brugerens informationer
+		Connection c = createConnection();
+        try {
+            Statement statement = c.createStatement();
 
-        //c.Connect("", "");
+            statement.executeUpdate("INSERT INTO CDIO1 (" + user + ")");
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+
+            //c.Connect("", "");
 	}
 	
 	@Override
-	public void updateUser(UserDTO user) {
-		//TODO:
+	public void updateUser(UserDTO user)throws DALException {
+		//TODO: her skal ændringen defineres
+        String ændring="";
+        Connection c = createConnection();
+        try {
+            Statement statement = c.createStatement();
+
+            statement.executeUpdate("UPDATE CDIO1 SET userName="+ændring+", ini="+ændring+", cpr="+ændring+",password="+ændring+",role="+ændring+" WHERE userId="+user );
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
 	}
 	
 	@Override
-	public void deleteUser(int userId) {
-		//TODO:
+	public void deleteUser(int userId)throws DALException {
+        Connection c = createConnection();
+        try {
+            Statement statement = c.createStatement();
+
+            //statement.executeUpdate("SELECT * FROM CDIO1 WHERE userID=1");
+            statement.executeUpdate("DELETE FROM CDIO1 WHERE userID="+userId);
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
 	}
 	
 	
