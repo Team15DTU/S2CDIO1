@@ -1,22 +1,54 @@
 package Logic;
 
+import java.util.Random;
+
 public class PasswordGenerator {
 
     /*
     -------------------------- Fields --------------------------
      */
-    
-    
+    private String password = "S";
+    int bigLetter = 0;
+    int smallLetters = 0;
+    int numbers = 0;
+
     
     /*
     ----------------------- Constructor -------------------------
      */
-    
-    
-    
+
+
+
     /*
     ------------------------ Properties -------------------------
      */
+
+
+    // Regin Properties
+    public String randomPassword() {
+        Random generator = new Random();
+
+        for (int i = 0; i<10; i++) {
+            int nr = generator.nextInt(60) + 1;
+            password += randomSwitch(nr);
+
+            //tæller hvor mange tal, små / store bogstaver som er i passwordet
+            if (nr <= 25) {smallLetters++;}
+            else if (nr > 25 && nr <= 50) {bigLetter++;}
+            else if (nr > 50) {numbers++;}
+        }
+        if (smallLetters == 0) {password += randomSwitch(generator.nextInt(25)+1);}
+        else if (bigLetter == 0) {password += randomSwitch(generator.nextInt(25)+26);}
+        else if (numbers == 0) {password += randomSwitch(generator.nextInt(10)+51);}
+
+
+        return password;
+
+    }
+
+
+    // endregion
+
     public String randomSwitch(int i){
         String c;
         switch (i) {
@@ -206,10 +238,7 @@ public class PasswordGenerator {
         }
         return c;
     }
-    // Regin Properties
 
-
-    // endregion
     
     /*
     ---------------------- Public Methods -----------------------
@@ -220,6 +249,12 @@ public class PasswordGenerator {
     /*
     ---------------------- Support Methods ----------------------
      */
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
 }

@@ -30,7 +30,10 @@ public class SwitchLogic {
             System.out.println(ex);
             userID = -1;
         }
-        UserDTO user = new UserDTO(userID,userName,ini, cPR, "Password",userRole );
+
+        PasswordGenerator pwGen = new PasswordGenerator();
+        String PW = pwGen.randomPassword();
+        UserDTO user = new UserDTO(userID,userName,ini, cPR, PW,userRole );
         try {
             dao.createUser(user);
         } catch (IUserDAO.DALException ex) {

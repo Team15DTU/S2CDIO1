@@ -41,11 +41,14 @@ public class TUI {
     // Menu beskederne
 
     private void MenuBesked() {
+        System.out.println();
         System.out.println("Enter a number for which action you want to take");
         System.out.println("1. Add new user");
         System.out.println("2. Show users");
         System.out.println("3. Opdate user");
         System.out.println("4. Remove user");
+        System.out.println("5. Close the program");
+        System.out.println("6. check password of a user");
     }
 
     //Menu switchen
@@ -77,7 +80,19 @@ public class TUI {
                 SL.delete(dao);
                 break;
             case 5:
-
+                System.exit(0);
+                break;
+            case 6:
+                Scanner scan = new Scanner(System.in);
+                System.out.println("Write index of the user you want to check password on");
+                int nr = scan.nextInt();
+                try {
+                    System.out.println(dao.getUser(nr).getPassword());
+                }
+                catch (IUserDAO.DALException ex) {
+                    System.out.println(ex);
+                }
+                break;
             default:
                 System.out.println("Please enter a valid input");
                 System.out.println();

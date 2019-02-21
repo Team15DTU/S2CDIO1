@@ -11,7 +11,6 @@ public class UserList {
 
     public void add(UserDTO e) {
         list.add(e);
-        System.out.println(list.size());
     }
 
     public List UserL() {
