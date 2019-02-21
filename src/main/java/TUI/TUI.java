@@ -63,11 +63,21 @@ public class TUI {
                 SL.Print(dao);
                 break;
             case 3: //some thing
-                System.out.println("du tastede 3, kode skal ind her");
+                try {
+                   Scanner scan = new Scanner(System.in);
+                   System.out.println("Enter user ID");
+                   int userID = scan.nextInt();
+                   UserDTO user = dao.getUser(userID);
+                   SL.update(dao, user);
+                } catch (IUserDAO.DALException ex) {
+                    System.out.println(ex);
+                }
                 break;
             case 4: //some thing
-                System.out.println("du tastede 4, kode skal ind her");
+                SL.delete(dao);
                 break;
+            case 5:
+
             default:
                 System.out.println("Please enter a valid input");
                 System.out.println();

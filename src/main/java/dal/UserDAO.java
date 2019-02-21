@@ -12,6 +12,16 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
+        List<UserDTO> list = UL.UserL();
+        UserDTO user;
+
+        for (int i = 0; i<list.size(); i++) {
+            if (userId == list.get(i).getUserId()) {
+                user = list.get(i);
+                return user;
+            }
+        }
+
         return null;
     }
 
