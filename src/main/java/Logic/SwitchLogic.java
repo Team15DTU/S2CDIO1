@@ -63,60 +63,9 @@ public class SwitchLogic {
 
     //click 3: update user
     public void update(UserDAO dao, UserDTO user) {
-        Scanner scan = new Scanner(System.in);
 
-        System.out.println("Click 1 to enter, click 2 to skip");
-
-        // ID (mabey remove it, coss wierd ID is imposible to find in getuser()
-        System.out.println("Want to change User ID?");
-        int choice1 = scan.nextInt();
-        if (choice1 == 1) {
-            System.out.println("enter the new user ID");
-            int newUserID = scan.nextInt();
-            user.setUserId(newUserID);
-        }
-        scan.nextLine();
-
-        //User name
-        System.out.println("Want to change User Name?");
-        int choice2 = scan.nextInt();
-        scan.nextLine();
-        if (choice2 == 1) {
-            System.out.println("enter the new user name");
-            String newUserName = scan.nextLine();
-            user.setUserName(newUserName);
-        }
-
-
-        //User initials
-        System.out.println("Want to change initials?");
-        int choice3 = scan.nextInt();
-        scan.nextLine();
-        if (choice3 == 1) {
-            System.out.println("enter the new initials");
-            String newUserIni = scan.nextLine();
-            user.setIni(newUserIni);
-        }
-
-        //User CPR
-        System.out.println("Want to change CPR number?");
-        int choice4 = scan.nextInt();
-        scan.nextLine();
-        if (choice4 == 1) {
-            System.out.println("enter the new CPR number");
-            String newCPR = scan.nextLine();
-            user.setCpr(newCPR);
-        }
-
-        //User password
-        System.out.println("Want to change password?");
-        int choice5 = scan.nextInt();
-        scan.nextLine();
-        if (choice5 == 1) {
-            System.out.println("enter the new password");
-            String newPassword = scan.nextLine();
-            user.setPassword(newPassword);
-        }
+       try { dao.updateUser(user);}
+       catch (IUserDAO.DALException ex) { System.out.println(ex); }
 
 
     }
@@ -133,7 +82,8 @@ public class SwitchLogic {
                     System.out.println("Click 1 to enter, click 2 to skip");
                     int choice2 = scan.nextInt();
                     if (choice2 == 1) {
-                        dao.deleteUser(i);
+                        int id = dao.getUser(i).getUserId();
+                        dao.deleteUser(id);
                     }
                 }
             }

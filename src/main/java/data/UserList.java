@@ -18,6 +18,10 @@ public class UserList {
         return list;
     }
 
+    public void delete(int i) {
+        list.remove(i);
+    }
+
 
 
 
