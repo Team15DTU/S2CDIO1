@@ -23,20 +23,27 @@ public class UserDAO implements IUserDAO {
             }
         }
 
-        return null;
+
+public class UserDAO implements IUserDAO {
+
+    List<UserDTO> userList = new ArrayList<>();
+
     }
 
     @Override
     public List<UserDTO> getUserList() throws DALException {
-        List<UserDTO> list = UL.UserL();
-        return list;
+
+        System.out.println(userList.size());
+        return userList;
     }
 
     @Override
     public void createUser(UserDTO user) throws DALException {
 
-        UL.add(user);
-
+        userList.add(user);
+        System.out.println("User is added");
+        System.out.println(userList.get(0).getUserName());
+        System.out.println(userList.size());
     }
 
     @Override
@@ -96,6 +103,13 @@ public class UserDAO implements IUserDAO {
             String newPassword = scan.nextLine();
             user.setPassword(newPassword);
         }
+        UserDTO newUser;
+        for (int i = 0; i>userList.size(); i++) {
+            if (userList.get(i).getUserId() == user.getUserId()) {
+                newUser = userList.get(i);
+            }
+        }
+        System.out.println("Insert ");
 
     }
 
@@ -103,10 +117,9 @@ public class UserDAO implements IUserDAO {
     @Override
     public void deleteUser(int userId) throws DALException {
 
-        List userList = getUserList();
         for (int i = 0; i<userList.size(); i++) {
-            if (getUser(i).getUserId() == userId) {
-                UL.delete(i);
+            if (userList.get(i).getUserId() == userId) {
+                userList.remove(i);
             }
         }
 
