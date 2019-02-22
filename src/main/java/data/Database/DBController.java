@@ -74,21 +74,24 @@ public class DBController {
         System.out.println("2. DTO-Database");
         System.out.println("3. Hashmap-Database");
 
-        switch (input.nextInt()){
+        switch (input.next()){
 
-            case 1:
+            case "1":
                 //SQLDatabase startup
                 dbController.SQLDatabase();
                 break;
 
-            case 2:
+            case "2":
                 //Ikke persistent DTODatabase startup
                 dbController.DTODatabase();
                 break;
-            case 3:
+            case "3":
                 //HashmapDatabase startup
                 dbController.HashmapDatabase();
                 break;
+                default:
+                    System.out.println("Wrong input, try again");
+                    startUpSwitchLogic(dbController);
         }
 
 
