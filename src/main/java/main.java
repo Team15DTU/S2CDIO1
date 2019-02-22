@@ -1,6 +1,4 @@
-
 import data.File.FileDBController;
-import data.dto.UserDTO;
 
 /**
  * @author Rasmus Sander Larsen
@@ -18,5 +16,9 @@ public class main {
 
         fileDBController.shutdownAndSaveToFile();
     
+        TUI tui = new TUI();
+        tui.TUI();
+
+
     }
 }
