@@ -1,8 +1,7 @@
 package data.conn;
 
-import data.dal.IUserDAO;
+import data.dao.IUserDAO;
 import data.dto.UserDTO;
-import data.conn.Conn;
 
 import java.sql.*;
 import java.util.List;
