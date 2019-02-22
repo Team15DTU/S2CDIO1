@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Conn {
     public void Connect(String stmt, String stmt2){
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
 
         //loadDriver(); //Obsolete - only needed in rare cases.
         //try with resources (Java 7) - automatically calls connection.close() on end of try-catch block
@@ -25,7 +25,7 @@ public class Conn {
                     System.out.println(resultSet.getString(1) + ": " + resultSet.getString(2));
                 }
 
-            scanner.close();
+            //scanner.close();
             statement.close();
 
         } catch (SQLException e) {
