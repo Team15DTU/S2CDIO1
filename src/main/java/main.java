@@ -14,7 +14,7 @@ public class main {
 
         UserDTO user = new UserDTO(213123, "ALfred", "AL", "32131-1231", "password","admin");
 
-        fileDBController.addUserToFileDBHashMap(user);
+        fileDBController.createUser(user);
 
         fileDBController.shutdownAndSaveToFile();
     
