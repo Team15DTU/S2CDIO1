@@ -1,10 +1,9 @@
 package Logic;
 
-import dal.UserDAO;
-import data.dal.IUserDAO;
+import data.dao.UserDAO;
+import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class SwitchLogic {
@@ -65,8 +64,12 @@ public class SwitchLogic {
     }
 
     //click 3: update user
-    public void update(UserDAO dao, UserDTO user) {
+    public void update(UserDAO dao, UserDTO user) throws IUserDAO.DALException {
 
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter user ID");
+        int userID = scan.nextInt();
+        dao.getUser(userID);
        try { dao.updateUser(user);}
        catch (IUserDAO.DALException ex) { System.out.println(ex); }
 
@@ -95,7 +98,19 @@ public class SwitchLogic {
         }
     }
 
+    // click 6: Check password
+    public void checkPassword (UserDAO dao){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Write index of the user you want to check password on");
+        int nr = scan.nextInt();
+        try {
+            System.out.println(dao.getUser(nr).getPassword());
+        }
+        catch (IUserDAO.DALException ex) {
+            System.out.println(ex);
+        }
 
+    }
 
 
 

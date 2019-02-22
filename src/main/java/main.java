@@ -1,6 +1,7 @@
 import TUI.TUI;
 import data.File.FileDBController;
 import data.dto.UserDTO;
+import data.Database.DBController;
 
 /**
  * @author Rasmus Sander Larsen
@@ -21,6 +22,10 @@ public class main {
         fileDBController.addUserToFileDBHashMap(user);
 
         fileDBController.shutdownAndSaveToFile();
+
+      /*  DBController dbController = new DBController();
+        dbController.startup(dbController);
+*/
 
     }
 }
