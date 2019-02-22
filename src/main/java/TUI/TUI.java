@@ -1,25 +1,22 @@
 package TUI;
 
 import Logic.SwitchLogic;
-import dal.UserDAO;
 import data.dal.IUserDAO;
 import data.dto.UserDTO;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TUI {
 
     // ------------------------ Fields -------------------------
 
-    UserDAO dao;
+    IUserDAO DB_interface;
 
     // ------------------------- Constructor --------------------
 
-    public TUI () {
+    public TUI (IUserDAO userDAO) {
 
-        dao = new UserDAO();
+        DB_interface = userDAO;
 
     }
 
@@ -28,60 +25,60 @@ public class TUI {
 
         while (true) {
             Scanner scan = new Scanner(System.in);
-            MenuBesked();
+            startMenu();
             int choice = scan.nextInt();
-            TheSwitch(dao, choice);
-
+            TheSwitch(choice);
         }
-
     }
 
 
     // ---------------------- Private Method ------------------------
     // Menu beskederne
 
-    private void MenuBesked() {
+    private void startMenu() {
         System.out.println();
         System.out.println("Enter a number for which action you want to take");
         System.out.println("1. Add new user");
         System.out.println("2. Show users");
-        System.out.println("3. Opdate user");
+        System.out.println("3. Update user");
         System.out.println("4. Remove user");
         System.out.println("5. Close the program");
-        System.out.println("6. check password of a user");
+        System.out.println("6. Check password of a user");
     }
 
     //Menu switchen
 
-    private void TheSwitch(UserDAO dao, int choice) {
+    private void TheSwitch(int choice) {
 
-        SwitchLogic SL = new SwitchLogic();
-
+        SwitchLogic SL = new SwitchLogic(DB_interface);
 
         switch (choice) {
+            // 1. Add New User.
             case 1:
-                SL.AddUserLogic(dao);
+                SL.AddUser();
                 break;
+
+            // 2. Show Users.
             case 2: //some thing
-                SL.Print(dao);
+                SL.Print();
                 break;
+
+            // 3. Update User.
             case 3: //some thing
-                try {
-                   Scanner scan = new Scanner(System.in);
-                   System.out.println("Enter user ID");
-                   int userID = scan.nextInt();
-                   UserDTO user = dao.getUser(userID);
-                   SL.update(dao, user);
-                } catch (IUserDAO.DALException ex) {
-                    System.out.println(ex);
-                }
+                SL.update();
                 break;
+
+            // 4. Delete User.
             case 4: //some thing
                 SL.delete(dao);
                 break;
+
+            // 5. Close the program.
             case 5:
                 System.exit(0);
                 break;
+
+            // 6. Check Password for a User.
             case 6:
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Write index of the user you want to check password on");

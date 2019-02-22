@@ -3,6 +3,7 @@ package data.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class UserDTO implements Serializable{
 
@@ -23,16 +24,18 @@ public class UserDTO implements Serializable{
 		this.roles = new ArrayList<>();
 	}
 
-	public UserDTO (int userId, String userName, String ini, String cpr, String password, String role) {
+	public UserDTO (int userId, String userName, String ini, String cpr, String role) {
 		this.userId = userId;
 		this.userName = userName;
 		this.ini = ini;
 		this.cpr = cpr;
-		this.password = password;
+
+		// Generates a random password of minimum length 10 with numbers, upper- and lowercase letters.
+		this.password = passwordGenerator();
 
 		//Adds role.
 		this.roles = new ArrayList<>();
-		roles.add(role);
+		addRole(role);
 
 	}
 
@@ -94,5 +97,63 @@ public class UserDTO implements Serializable{
 		return "UserDTO [userId=" + userId + ", userName=" + userName + ", ini=" + ini + ", roles=" + roles + "]";
 	}
 
+	// ------------------- SUPPORT METHODS --------------------
+
+	private String passwordGenerator () {
+		Random generator = new Random();
+
+		StringBuilder passwordBuilder = new StringBuilder();
+
+		for (int i = 0; i < 10; i++) {
+			int randomGroup = generator.nextInt(3)+1;
+
+			if (randomGroup == 1) {
+				int tempNumberASCII = generator.nextInt(10) + 48;
+				passwordBuilder.append(((char) tempNumberASCII));
+			} else if (randomGroup == 2) {
+				int tempUpperCaseLetterACSII = generator.nextInt(26) + 65;
+				passwordBuilder.append(((char) tempUpperCaseLetterACSII));
+			} else if (randomGroup == 3) {
+				int tempLowerCaseLetterACSII = generator.nextInt(26) + 97;
+				passwordBuilder.append(((char) tempLowerCaseLetterACSII));
+			}
+		}
+
+		int[] charTypeCounter = checkAndEachTypeOfCharInPassword(password);
+
+		// Hvis der ikke er nogle tal, så tilføjes et tal.
+		if (charTypeCounter[0] == 0) {
+			int tempNumberASCII = generator.nextInt(10) + 48;
+			passwordBuilder.append(((char) tempNumberASCII));
+
+		// Hvis der ikke nogle store bogstaver, så tilføjes et stort bogstav.
+		} else if (charTypeCounter[1] == 0) {
+			int tempUpperCaseLetterACSII = generator.nextInt(26) + 65;
+			passwordBuilder.append(((char) tempUpperCaseLetterACSII));
+
+		// Hvis der ikke er nogle små bogstaver, så tilføjes et småt bogstav.
+		} else if (charTypeCounter[2] == 0) {
+			int tempLowerCaseLetterACSII = generator.nextInt(26) + 97;
+			passwordBuilder.append(((char) tempLowerCaseLetterACSII));
+		}
+
+		return passwordBuilder.toString();
+	}
+
+	private int[] checkAndEachTypeOfCharInPassword (String password) {
+		int[] charTypeCounter = {0,0,0};
+
+		for (int i = 0; i < password.length(); i++) {
+			int tempACSIIValueOfChar = password.charAt(0);
+			if (tempACSIIValueOfChar >= 48 && tempACSIIValueOfChar <= 57) {
+				charTypeCounter[0]++;
+			} else if (tempACSIIValueOfChar >=65 && tempACSIIValueOfChar <= 90) {
+				charTypeCounter[1]++;
+			} else if (tempACSIIValueOfChar >= 97 && tempACSIIValueOfChar <= 122) {
+				charTypeCounter[2]++;
+			}
+		}
+		return charTypeCounter;
+	}
 
 }

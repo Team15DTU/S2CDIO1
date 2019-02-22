@@ -98,10 +98,11 @@ public class FileDB {
 
     private void infoArrayIntoHashMap (HashMap<Integer,UserDTO> hashMap, String[] stringInfoArray) {
 
-        // Fixme: Få lortet til at loade en string til en Int
+        // Gets UserID.
         String tempUserID = stringInfoArray[0];
         int tempUserID_int = Integer.parseInt(tempUserID);
 
+        // Loads user Roles
         List<String> roles = new ArrayList<>();
         String[] roleArray = stringInfoArray[5].split(":");
 
@@ -109,9 +110,11 @@ public class FileDB {
             roles.add(role);
         }
 
+        //Creates new user from the collected data.
         UserDTO tempUser = new UserDTO(tempUserID_int,stringInfoArray[1],stringInfoArray[2],
-                    stringInfoArray[3], stringInfoArray[4], stringInfoArray[5]);
+                    stringInfoArray[3], stringInfoArray[5]);
 
+        // Adds User object to HashMap
         hashMap.put(Integer.parseInt(stringInfoArray[0]), tempUser);
 
     }
