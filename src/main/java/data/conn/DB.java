@@ -1,4 +1,4 @@
-package data;
+package data.conn;
 
 import data.dal.IUserDAO;
 import data.dto.UserDTO;
