@@ -1,7 +1,7 @@
 package data.Database;
 
 import TUI.TUI;
-import dal.UserDAO;
+import data.dao.UserDAO;
 import data.dto.UserDTO;
 
 import java.util.Scanner;

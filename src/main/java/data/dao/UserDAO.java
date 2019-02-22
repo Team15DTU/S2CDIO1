@@ -1,10 +1,8 @@
-package dal;
+package data.dao;
 
-import data.UserList;
-import data.dal.IUserDAO;
+import data.dto.UserList;
 import data.dto.UserDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 

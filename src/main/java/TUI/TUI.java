@@ -1,12 +1,10 @@
 package TUI;
 
 import Logic.SwitchLogic;
-import dal.UserDAO;
-import data.dal.IUserDAO;
+import data.dao.UserDAO;
+import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TUI {

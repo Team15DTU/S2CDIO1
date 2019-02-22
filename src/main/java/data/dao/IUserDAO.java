@@ -1,4 +1,4 @@
-package data.dal;
+package data.dao;
 import java.util.List;
 
 import data.dto.UserDTO;

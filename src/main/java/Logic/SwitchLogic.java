@@ -1,10 +1,9 @@
 package Logic;
 
-import dal.UserDAO;
-import data.dal.IUserDAO;
+import data.dao.UserDAO;
+import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class SwitchLogic {
