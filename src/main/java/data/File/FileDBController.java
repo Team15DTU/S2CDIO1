@@ -73,6 +73,8 @@ public class FileDBController {
 
     public void shutdownAndSaveToFile () {
         writer.writeToFile(fileDB.getFileHashMap());
+        writer.setFilePath(writer.getFilePath().replace( "/src/main/resources/","/target/classes/"));
+        writer.writeToFile(fileDB.getFileHashMap());
     }
     
     /*

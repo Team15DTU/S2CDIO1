@@ -3,7 +3,9 @@ package data.File;
 import data.dto.UserDTO;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Rasmus Sander Larsen
@@ -99,6 +101,13 @@ public class FileDB {
         // Fixme: Få lortet til at loade en string til en Int
         String tempUserID = stringInfoArray[0];
         int tempUserID_int = Integer.parseInt(tempUserID);
+
+        List<String> roles = new ArrayList<>();
+        String[] roleArray = stringInfoArray[5].split(":");
+
+        for (String role : roleArray){
+            roles.add(role);
+        }
 
         UserDTO tempUser = new UserDTO(tempUserID_int,stringInfoArray[1],stringInfoArray[2],
                     stringInfoArray[3], stringInfoArray[4], stringInfoArray[5]);

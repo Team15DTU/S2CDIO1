@@ -35,6 +35,13 @@ public class Writer {
 
     // <editor-folder desc="Properties"
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     // </editor-folder>
     
@@ -57,7 +64,7 @@ public class Writer {
                 tempUserInfo.append(hashMap.get(key).getPassword() + ";");
                 for (int j = 0; j < hashMap.get(key).getRoles().size(); j++){
                     if (j!=hashMap.get(key).getRoles().size()) {
-                        roleBuilder.append(hashMap.get(key).getRoles().get(j) + ",");
+                        roleBuilder.append(hashMap.get(key).getRoles().get(j) + ":");
                     } else {
                         roleBuilder.append(hashMap.get(key).getRoles().get(j));
                     }
