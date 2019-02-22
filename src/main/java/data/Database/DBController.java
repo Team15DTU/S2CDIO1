@@ -4,6 +4,8 @@ import TUI.TUI;
 import dal.UserDAO;
 import data.dto.UserDTO;
 
+import java.util.Scanner;
+
 /**
  * @author Nikolaj Wassmann
  */
@@ -37,29 +39,60 @@ public class DBController {
     --------------------------Public methods--------------------------
      */
 
-    /**
-     * Vi skal have modificeret TUI så den æn
-     */
 
-    public void SQLDatabase (){
-        tui.TUI();
+    public void startup(DBController dbController) {
+        startUpSwitchLogic(dbController);
 
     }
-
-    public void DTODatabase (){
-        tui.TUI();
-
-    }
-
-    public void HashmapDatabase () {
-
-    }
-
 
 
     /*
     --------------------------Private methods--------------------------
      */
+
+
+    private void SQLDatabase (){
+        tui.TUI();
+
+    }
+
+    private void DTODatabase (){
+        tui.TUI();
+
+    }
+
+    private void HashmapDatabase () {
+        tui.TUI();
+
+    }
+
+    private void startUpSwitchLogic (DBController dbController){
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Choose which database you would like to open:");
+        System.out.println("1. SQL-Database");
+        System.out.println("2. DTO-Database");
+        System.out.println("3. Hashmap-Database");
+
+        switch (input.nextInt()){
+
+            case 1:
+                //SQLDatabase startup
+                dbController.SQLDatabase();
+                break;
+
+            case 2:
+                //Ikke persistent DTODatabase startup
+                dbController.DTODatabase();
+                break;
+            case 3:
+                //HashmapDatabase startup
+                dbController.HashmapDatabase();
+                break;
+        }
+
+
+    }
 
 
 }

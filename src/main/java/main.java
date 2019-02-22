@@ -1,4 +1,5 @@
 import TUI.TUI;
+import data.Database.DBController;
 
 /**
  * @author Rasmus Sander Larsen
@@ -7,9 +8,8 @@ public class main {
 
     public static void main(String[] args) {
 
-        TUI tui = new TUI();
-        tui.TUI();
-
+        DBController dbController = new DBController();
+        dbController.startup(dbController);
 
     }
 }
