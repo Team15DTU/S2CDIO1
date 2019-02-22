@@ -98,12 +98,6 @@ public class SwitchLogic {
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }
-
-       try {
-           iUserDAO.updateUser(user);
-       } catch (IUserDAO.DALException ex) {
-           System.out.println(ex);
-       }
     }
 
     //click 4: delete user
