@@ -16,14 +16,17 @@ public class Writer {
     -------------------------- Fields --------------------------
      */
 
-    private String fileName;
+    private String filePath;
     
     /*
     ----------------------- Constructor -------------------------
      */
     
     public Writer (String fileName) {
-        this.fileName = fileName;
+
+        filePath = setupFilePath(fileName);
+
+        System.out.println(filePath);
     }
     
     /*
@@ -41,22 +44,22 @@ public class Writer {
     
     public void writeToFile (HashMap<Integer, UserDTO> hashMap) {
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName) )) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath) )) {
 
-            for (int i = 0; i < hashMap.size(); i++) {
+            for (int key : hashMap.keySet()) {
                 StringBuilder tempUserInfo = new StringBuilder();
                 StringBuilder roleBuilder = new StringBuilder();
 
-                tempUserInfo.append(hashMap.get(i).getUserId() + ";");
-                tempUserInfo.append(hashMap.get(i).getUserName() + ";");
-                tempUserInfo.append(hashMap.get(i).getIni() + ";");
-                tempUserInfo.append(hashMap.get(i).getCpr() + ";");
-                tempUserInfo.append(hashMap.get(i).getPassword() + ";");
-                for (int j = 0; j < hashMap.get(i).getRoles().size(); j++){
-                    if (j!=hashMap.get(i).getRoles().size()) {
-                        roleBuilder.append(hashMap.get(i).getRoles().get(j) + ",");
+                tempUserInfo.append(hashMap.get(key).getUserId() + ";");
+                tempUserInfo.append(hashMap.get(key).getUserName() + ";");
+                tempUserInfo.append(hashMap.get(key).getIni() + ";");
+                tempUserInfo.append(hashMap.get(key).getCpr() + ";");
+                tempUserInfo.append(hashMap.get(key).getPassword() + ";");
+                for (int j = 0; j < hashMap.get(key).getRoles().size(); j++){
+                    if (j!=hashMap.get(key).getRoles().size()) {
+                        roleBuilder.append(hashMap.get(key).getRoles().get(j) + ",");
                     } else {
-                        roleBuilder.append(hashMap.get(i).getRoles().get(j));
+                        roleBuilder.append(hashMap.get(key).getRoles().get(j));
                     }
                 }
                 tempUserInfo.append(roleBuilder.toString() + "\n");
@@ -74,4 +77,10 @@ public class Writer {
     /*
     ---------------------- Support Methods ----------------------
      */
+
+    private String setupFilePath (String fileName) {
+
+        return getClass().getClassLoader().getResource(fileName).getPath().replace("%20", " ")
+                .replace("/target/classes/", "/src/main/resources/");
+    }
 }

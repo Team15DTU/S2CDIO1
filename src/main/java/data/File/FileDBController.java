@@ -12,13 +12,16 @@ public class FileDBController {
      */
     
     private FileDB fileDB;
+    private Writer writer;
     
     /*
     ----------------------- Constructor -------------------------
      */
     
     public FileDBController () {
+
         fileDB = new FileDB("fileDB.csv");
+        writer = new Writer("fileDB.csv");
     }
     
     /*
@@ -66,6 +69,10 @@ public class FileDBController {
 
         fileDB.getFileHashMap().remove(userID);
 
+    }
+
+    public void shutdownAndSaveToFile () {
+        writer.writeToFile(fileDB.getFileHashMap());
     }
     
     /*
