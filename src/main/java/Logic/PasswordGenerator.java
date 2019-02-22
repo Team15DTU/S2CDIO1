@@ -7,7 +7,7 @@ public class PasswordGenerator {
     /*
     -------------------------- Fields --------------------------
      */
-    private String password = "S";
+    private String password;
     int bigLetter = 0;
     int smallLetters = 0;
     int numbers = 0;
@@ -25,30 +25,59 @@ public class PasswordGenerator {
 
 
     // Regin Properties
-    public String randomPassword() {
-        Random generator = new Random();
-
-        for (int i = 0; i<10; i++) {
-            int nr = generator.nextInt(60) + 1;
-            password += randomSwitch(nr);
-
-            //tæller hvor mange tal, små / store bogstaver som er i passwordet
-            if (nr <= 25) {smallLetters++;}
-            else if (nr > 25 && nr <= 50) {bigLetter++;}
-            else if (nr > 50) {numbers++;}
-        }
-        if (smallLetters == 0) {password += randomSwitch(generator.nextInt(25)+1);}
-        else if (bigLetter == 0) {password += randomSwitch(generator.nextInt(25)+26);}
-        else if (numbers == 0) {password += randomSwitch(generator.nextInt(10)+51);}
-
-
-        return password;
-
-    }
 
 
     // endregion
 
+
+    
+    /*
+    ---------------------- Public Methods -----------------------
+     */
+
+    public String randomPassword() {
+        Random generator = new Random();
+
+        //Sætter password op så det er random og uden nogen start værdi
+        int nr2 = generator.nextInt(60) + 1;
+        password = randomSwitch(nr2);
+
+        //smider 10 ekstra tal eller bogstaver på
+        for (int i = 0; i < 10; i++) {
+            int nr = generator.nextInt(60) + 1;
+            password += randomSwitch(nr);
+
+            //tæller hvor mange tal, små / store bogstaver som er i passwordet
+            if (nr <= 25) {
+                smallLetters++;
+            } else if (nr > 25 && nr <= 50) {
+                bigLetter++;
+            } else if (nr > 50) {
+                numbers++;
+            }
+        }
+
+        //smider ekstra nr på hvis der mangler
+        if (smallLetters == 0) {
+            password += randomSwitch(generator.nextInt(25) + 1);
+        }
+        if (bigLetter == 0) {
+            password += randomSwitch(generator.nextInt(25) + 26);
+        }
+        if (numbers == 0) {
+            password += randomSwitch(generator.nextInt(10) + 51);
+        }
+
+
+        return password;
+
+
+    }
+    /*
+    ---------------------- Support Methods ----------------------
+     */
+
+    //Switchen som ud fra et random nr vælger en tegn til passwordet
     public String randomSwitch(int i){
         String c;
         switch (i) {
@@ -239,16 +268,8 @@ public class PasswordGenerator {
         return c;
     }
 
-    
-    /*
-    ---------------------- Public Methods -----------------------
-     */
-    
-    
-    
-    /*
-    ---------------------- Support Methods ----------------------
-     */
+
+
     public String getPassword() {
         return password;
     }
