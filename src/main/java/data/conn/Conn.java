@@ -3,7 +3,7 @@ package data.conn;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Conn {
+public class  Conn {
     public void Connect(String stmt, String stmt2){
         //Scanner scanner = new Scanner(System.in);
 
