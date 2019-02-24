@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserDAO implements IUserDAO {
+
     UserList UL = new UserList();
 
     @Override
@@ -109,6 +110,10 @@ public class UserDAO implements IUserDAO {
                 UL.delete(i);
             }
         }
+
+    }
+
+    public void shutdown () throws DALException {
 
     }
 

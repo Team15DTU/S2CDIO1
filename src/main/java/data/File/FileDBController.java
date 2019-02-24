@@ -88,7 +88,7 @@ public class FileDBController implements IUserDAO {
         return userList;
     }
 
-    public void shutdownAndSaveToFile () {
+    public void shutdown () throws DALException {
         writer.writeToFile(fileDB.getFileHashMap());
         writer.setFilePath(writer.getFilePath().replace( "/src/main/resources/","/target/classes/"));
         writer.writeToFile(fileDB.getFileHashMap());

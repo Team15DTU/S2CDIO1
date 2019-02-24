@@ -32,7 +32,7 @@ public class SwitchLogic {
         String userName = scan.nextLine();
         System.out.println("Enter user ini");
         String ini = scan.nextLine();
-        System.out.println("Enter CPR number");
+        System.out.println("Enter CPR number (fx. 123456-1234)");
         String cpr = scan.nextLine();
         System.out.println("Enter user role");
         String userRole = scan.nextLine();
@@ -86,7 +86,7 @@ public class SwitchLogic {
             System.out.println("Enter user ID");
             int userID = scan.nextInt();
             UserDTO user = iUserDAO.getUser(userID);
-            System.out.println("UserId - "+ user.getUserId());
+            System.out.println("UserId: "+ user.getUserId());
 
             //TODO: Burde muligvis være sin egen menu .
             System.out.println("Current UserName: "+ user.getUserName());
@@ -101,25 +101,29 @@ public class SwitchLogic {
     }
 
     //click 4: delete user
-    public void delete(UserDAO dao) {
+    public void delete() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the user ID of the user you want to delete");
         int choice = scan.nextInt();
         try {
-            for (int i = 0; i<dao.getUserList().size(); i++) {
-                if (choice == dao.getUser(i).getUserId()){
-                    System.out.println("Are you sure you want to delete " + dao.getUser(i).getUserName() + "?");
-                    System.out.println("Click 1 to enter, click 2 to skip");
-                    int choice2 = scan.nextInt();
-                    if (choice2 == 1) {
-                        int id = dao.getUser(i).getUserId();
-                        dao.deleteUser(id);
-                    }
-                }
+            System.out.println("Are you sure you want to delete: " + iUserDAO.getUser(choice).getUserName() + "?");
+            System.out.println("Click 1 to enter, click 2 to skip");
+            int choice2 = scan.nextInt();
+            if (choice2 == 1) {
+                iUserDAO.deleteUser(choice);
+            } else {
+                System.out.println(iUserDAO.getUser(choice).getUserName() + "didn't get deleted.");
             }
+
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }
+    }
+
+    // Click 5 : Shutdown
+
+    public void shutdown () {
+
     }
 
 

@@ -70,11 +70,12 @@ public class TUI {
 
             // 4. Delete User.
             case 4: //some thing
-                SL.delete(dao);
+                SL.delete();
                 break;
 
             // 5. Close the program.
             case 5:
+
                 System.exit(0);
                 break;
 
@@ -84,7 +85,7 @@ public class TUI {
                 System.out.println("Write index of the user you want to check password on");
                 int nr = scan.nextInt();
                 try {
-                    System.out.println(dao.getUser(nr).getPassword());
+                    System.out.println(DB_interface.getUser(nr).getPassword());
                 }
                 catch (IUserDAO.DALException ex) {
                     System.out.println(ex);

@@ -100,6 +100,7 @@ public class UserDTO implements Serializable{
 	// ------------------- SUPPORT METHODS --------------------
 
 	private String passwordGenerator () {
+
 		Random generator = new Random();
 
 		StringBuilder passwordBuilder = new StringBuilder();
@@ -119,7 +120,7 @@ public class UserDTO implements Serializable{
 			}
 		}
 
-		int[] charTypeCounter = checkAndEachTypeOfCharInPassword(password);
+		int[] charTypeCounter = checkAndEachTypeOfCharInPassword(passwordBuilder.toString());
 
 		// Hvis der ikke er nogle tal, så tilføjes et tal.
 		if (charTypeCounter[0] == 0) {
@@ -144,7 +145,7 @@ public class UserDTO implements Serializable{
 		int[] charTypeCounter = {0,0,0};
 
 		for (int i = 0; i < password.length(); i++) {
-			int tempACSIIValueOfChar = password.charAt(0);
+			int tempACSIIValueOfChar = password.charAt(i);
 			if (tempACSIIValueOfChar >= 48 && tempACSIIValueOfChar <= 57) {
 				charTypeCounter[0]++;
 			} else if (tempACSIIValueOfChar >=65 && tempACSIIValueOfChar <= 90) {
