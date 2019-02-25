@@ -3,7 +3,9 @@ package data.File;
 import data.dto.UserDTO;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Rasmus Sander Larsen
@@ -56,8 +58,8 @@ public class FileDB {
     /*
     ---------------------- Public Methods -----------------------
      */
-
-
+    
+    
 
     /*
     ---------------------- Support Methods ----------------------
@@ -72,7 +74,7 @@ public class FileDB {
         } catch (NullPointerException e) {
 
             System.out.println("Der blev ikke fundet nogen fil i klassen \"FileDB.java\" metoden setupHashmap()");
-        }
+           }
     }
 
     private void readFileIntoHashMap(String filePath, HashMap<Integer, UserDTO> hashMap) {
@@ -96,13 +98,23 @@ public class FileDB {
 
     private void infoArrayIntoHashMap (HashMap<Integer,UserDTO> hashMap, String[] stringInfoArray) {
 
-        // Fixme: Få lortet til at loade en string til en Int
+        // Gets UserID.
         String tempUserID = stringInfoArray[0];
         int tempUserID_int = Integer.parseInt(tempUserID);
 
-        UserDTO tempUser = new UserDTO(tempUserID_int,stringInfoArray[1],stringInfoArray[2],
-                stringInfoArray[3], stringInfoArray[4], stringInfoArray[5]);
+        // Loads user Roles
+        List<String> roles = new ArrayList<>();
+        String[] roleArray = stringInfoArray[5].split(":");
 
+        for (String role : roleArray){
+            roles.add(role);
+        }
+
+        //Creates new user from the collected data.
+        UserDTO tempUser = new UserDTO(tempUserID_int,stringInfoArray[1],stringInfoArray[2],
+                    stringInfoArray[3], stringInfoArray[5]);
+
+        // Adds User object to HashMap
         hashMap.put(Integer.parseInt(stringInfoArray[0]), tempUser);
 
     }

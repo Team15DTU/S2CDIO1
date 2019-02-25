@@ -8,8 +8,22 @@ import java.util.Scanner;
 
 public class SwitchLogic {
 
+    // ---------------------- FIELDS ------------------
+
+    private IUserDAO iUserDAO;
+
+    // ---------------------- CONSTRUCTOR --------------------
+
+    public SwitchLogic (IUserDAO iUserDAO) {
+
+        this.iUserDAO = iUserDAO;
+
+    }
+
+    // ------------------- PUBLIC METHODS ----------------
+
     //Click 1: add user
-    public void AddUserLogic(UserDAO dao) {
+    public void AddUser() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter the user detail of the new user");
@@ -17,24 +31,23 @@ public class SwitchLogic {
         String userName = scan.nextLine();
         System.out.println("Enter user ini");
         String ini = scan.nextLine();
-        System.out.println("Enter CPR number");
-        String cPR = scan.nextLine();
+        System.out.println("Enter CPR number (fx. 123456-1234)");
+        String cpr = scan.nextLine();
         System.out.println("Enter user role");
         String userRole = scan.nextLine();
 
         int userID;
         try {
-            userID = dao.getUserList().size();
+            userID = iUserDAO.getUserList().size();
         }catch (IUserDAO.DALException ex){
             System.out.println(ex);
             userID = -1;
         }
 
-        PasswordGenerator pwGen = new PasswordGenerator();
-        String PW = pwGen.randomPassword();
-        UserDTO user = new UserDTO(userID,userName,ini, cPR, PW,userRole );
+        UserDTO user = new UserDTO(userID,userName,ini, cpr,userRole );
+
         try {
-            dao.createUser(user);
+            iUserDAO.createUser(user);
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }
@@ -42,21 +55,24 @@ public class SwitchLogic {
     }
 
     //click 2: print user list
-    public void Print(UserDAO dao) {
+
+    public void Print() {
         Scanner scan = new Scanner(System.in);
         int p = 0;
         try {
-            p = dao.getUserList().size();
+            p = iUserDAO.getUserList().size();
         } catch (IUserDAO.DALException ex) {
+
             System.out.println(ex);
+
         }
 
         for (int i = 0; i < p; i++) {
             try {
-                System.out.print(dao.getUserList().get(i).getUserId()+ ", ");
-                System.out.print(dao.getUserList().get(i).getUserName()+ ", ");
-                System.out.print(dao.getUserList().get(i).getIni()+ ", ");
-                System.out.println(dao.getUserList().get(i).getRoles());
+                System.out.print(iUserDAO.getUserList().get(i).getUserId()+ ", ");
+                System.out.print(iUserDAO.getUserList().get(i).getUserName()+ ", ");
+                System.out.print(iUserDAO.getUserList().get(i).getIni()+ ", ");
+                System.out.println(iUserDAO.getUserList().get(i).getRoles());
             } catch (IUserDAO.DALException ex) {
                 System.out.println(ex);
             }
@@ -64,35 +80,41 @@ public class SwitchLogic {
     }
 
     //click 3: update user
-    public void update(UserDAO dao, UserDTO user) throws IUserDAO.DALException {
+    public void update() {
+        try {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Enter user ID");
+            int userID = scan.nextInt();
+            UserDTO user = iUserDAO.getUser(userID);
+            System.out.println("UserId: "+ user.getUserId());
 
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter user ID");
-        int userID = scan.nextInt();
-        dao.getUser(userID);
-       try { dao.updateUser(user);}
-       catch (IUserDAO.DALException ex) { System.out.println(ex); }
+            //TODO: Burde muligvis være sin egen menu .
+            System.out.println("Current UserName: "+ user.getUserName());
+            System.out.println("Enter new UserName below and press Enter:");
+            String newUserName = scan.next();
+            user.setUserName(newUserName);
 
-
+            iUserDAO.updateUser(user);
+        } catch (IUserDAO.DALException ex) {
+            System.out.println(ex);
+        }
     }
 
     //click 4: delete user
-    public void delete(UserDAO dao) {
+    public void delete() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the user ID of the user you want to delete");
         int choice = scan.nextInt();
         try {
-            for (int i = 0; i<dao.getUserList().size(); i++) {
-                if (choice == dao.getUser(i).getUserId()){
-                    System.out.println("Are you sure you want to delete " + dao.getUser(i).getUserName() + "?");
-                    System.out.println("Click 1 to enter, click 2 to skip");
-                    int choice2 = scan.nextInt();
-                    if (choice2 == 1) {
-                        int id = dao.getUser(i).getUserId();
-                        dao.deleteUser(id);
-                    }
-                }
+            System.out.println("Are you sure you want to delete: " + iUserDAO.getUser(choice).getUserName() + "?");
+            System.out.println("Click 1 to enter, click 2 to skip");
+            int choice2 = scan.nextInt();
+            if (choice2 == 1) {
+                iUserDAO.deleteUser(choice);
+            } else {
+                System.out.println(iUserDAO.getUser(choice).getUserName() + "didn't get deleted.");
             }
+
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }
@@ -110,10 +132,13 @@ public class SwitchLogic {
             System.out.println(ex);
         }
 
+    // Click 5 : Shutdown
+
+    public void shutdown () {
+
     }
 
 
-
-
+    // ------------------- SUPPORT METHODS -------------------------
 
 }
