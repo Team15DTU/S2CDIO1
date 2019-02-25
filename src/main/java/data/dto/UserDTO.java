@@ -41,6 +41,7 @@ public class UserDTO implements Serializable{
 
 	// ---------------------- Getters and Setters ----------------------
 
+	// region Getters and Setters
 	public int getUserId() {
 		return userId;
 	}
@@ -78,11 +79,14 @@ public class UserDTO implements Serializable{
 		this.password = password;
 	}
 
+	// endregion
+
 	// ---------------------- Public Method ----------------------
 
 	public void addRole(String role){
 		this.roles.add(role);
 	}
+
 	/**
 	 * 
 	 * @param role
@@ -99,13 +103,17 @@ public class UserDTO implements Serializable{
 
 	// ------------------- SUPPORT METHODS --------------------
 
+	/**
+	 * Generates a String as a Password of length 12 Charters.
+	 * @return String password.
+	 */
 	private String passwordGenerator () {
 
 		Random generator = new Random();
 
 		StringBuilder passwordBuilder = new StringBuilder();
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 12; i++) {
 			int randomGroup = generator.nextInt(3)+1;
 
 			if (randomGroup == 1) {

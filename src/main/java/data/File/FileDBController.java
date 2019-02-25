@@ -1,6 +1,6 @@
 package data.File;
 
-import data.dal.IUserDAO;
+import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
 import java.util.ArrayList;

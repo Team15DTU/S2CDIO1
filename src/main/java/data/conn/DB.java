@@ -129,6 +129,10 @@ public class DB implements IUserDAO {
             throw new DALException(e.getMessage());
         }
 	}
+
+	public void shutdown () throws DALException {
+
+    }
 	
 	
 	//endregion

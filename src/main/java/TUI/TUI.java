@@ -1,8 +1,7 @@
 package TUI;
 
 import Logic.SwitchLogic;
-import data.dal.IUserDAO;
-import data.dto.UserDTO;
+import data.dao.IUserDAO;
 
 import java.util.Scanner;
 
@@ -75,7 +74,7 @@ public class TUI {
 
             // 5. Close the program.
             case 5:
-
+                SL.shutdown();
                 System.exit(0);
                 break;
 

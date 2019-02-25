@@ -38,7 +38,7 @@ public class SwitchLogic {
 
         int userID;
         try {
-            userID = iUserDAO.getUserList().size();
+            userID = iUserDAO.getUserList().size()+1;
         }catch (IUserDAO.DALException ex){
             System.out.println(ex);
             userID = -1;
@@ -121,21 +121,26 @@ public class SwitchLogic {
     }
 
     // click 6: Check password
-    public void checkPassword (UserDAO dao){
+    public void checkPassword (UserDAO dao) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Write index of the user you want to check password on");
         int nr = scan.nextInt();
         try {
             System.out.println(dao.getUser(nr).getPassword());
-        }
-        catch (IUserDAO.DALException ex) {
+        } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }
+    }
 
     // Click 5 : Shutdown
 
     public void shutdown () {
 
+        try {
+            iUserDAO.shutdown();
+        } catch (IUserDAO.DALException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package data.Database;
 
 import TUI.TUI;
+import data.File.FileDBController;
 import data.dao.IUserDAO;
 import data.dao.UserDAO;
 import data.dto.UserDTO;
@@ -74,10 +75,13 @@ public class DBController {
 
 
 
+
+
         System.out.println("Your selected SQL as Database type.");
 
     }
 
+    // CHOOSE: 1
     private void DAODatabase (){
         // TODO: Set DB to the correct DAO_DB class
 
@@ -90,7 +94,7 @@ public class DBController {
     private void FileDatabase () {
         // TODO: Set DB to the correct File_DB class
 
-
+        DB = new FileDBController();
 
         System.out.println("You selected File as Database type.");
     }
