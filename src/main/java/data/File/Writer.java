@@ -63,7 +63,7 @@ public class Writer {
                 tempUserInfo.append(hashMap.get(key).getCpr() + ";");
                 tempUserInfo.append(hashMap.get(key).getPassword() + ";");
                 for (int j = 0; j < hashMap.get(key).getRoles().size(); j++){
-                    if (j!=hashMap.get(key).getRoles().size()) {
+                    if (j!=hashMap.get(key).getRoles().size()-1) {
                         roleBuilder.append(hashMap.get(key).getRoles().get(j) + ":");
                     } else {
                         roleBuilder.append(hashMap.get(key).getRoles().get(j));
