@@ -1,10 +1,9 @@
 package data.Database;
 
-import TUI.TUI;
 import data.File.FileDBController;
+import data.conn.DB;
 import data.dao.IUserDAO;
 import data.dao.UserDAO;
-import data.dto.UserDTO;
 
 import java.util.Scanner;
 
@@ -73,9 +72,7 @@ public class DBController {
     private void SQLDatabase (){
         // TODO: Set DB to the correct SQL_DB class
 
-
-
-
+        DB = new DB();
 
         System.out.println("Your selected SQL as Database type.");
 

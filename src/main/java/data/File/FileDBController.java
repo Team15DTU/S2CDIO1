@@ -42,6 +42,13 @@ public class FileDBController implements IUserDAO {
         this.fileDB = fileDB;
     }
 
+    public Writer getWriter() {
+        return writer;
+    }
+
+    public void setWriter(Writer writer) {
+        this.writer = writer;
+    }
 
     // endregion
     

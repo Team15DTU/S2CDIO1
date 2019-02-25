@@ -1,5 +1,7 @@
 package data.dto;
 
+import data.dao.UserDAO;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,17 @@ public class UserDTO implements Serializable{
 		this.roles = new ArrayList<>();
 		addRole(role);
 
+	}
+
+	public UserDTO (int userId, String userName, String ini, String cpr, String password, String role){
+		this.userId = userId;
+		this.userName = userName;
+		this.ini = ini;
+		this.cpr = cpr;
+		this.password = password;
+
+		this.roles = new ArrayList<>();
+		addRole(role);
 	}
 
 	// ---------------------- Getters and Setters ----------------------
@@ -82,6 +95,19 @@ public class UserDTO implements Serializable{
 	// endregion
 
 	// ---------------------- Public Method ----------------------
+
+	public boolean passwordChecker () {
+		boolean passwordBoolean;
+		int[] noOfCharsPassed = checkAndEachTypeOfCharInPassword(password);
+
+		if (noOfCharsPassed[0] != 0 && noOfCharsPassed[1] != 0 && noOfCharsPassed[2] != 0) {
+			passwordBoolean = true;
+		} else {
+			passwordBoolean = false;
+		}
+
+		return passwordBoolean;
+	}
 
 	public void addRole(String role){
 		this.roles.add(role);

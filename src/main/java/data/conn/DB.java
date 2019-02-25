@@ -1,6 +1,6 @@
-package data;
+package data.conn;
 
-import data.dal.IUserDAO;
+import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
 import java.sql.*;
@@ -33,16 +33,25 @@ public class DB implements IUserDAO {
             ResultSet rs = statement.executeQuery("SELECT * FROM CDIO1 WHERE userID="+userId);
 
             while (rs.next()){
-				int UserId = rs.getInt("userID");
-				String userName = rs.getString("userName");
-				String ini = rs.getString("ini");
-				String cpr = rs.getString("cpr");
-				String password = rs.getString("password");
-				String roles = rs.getString("roles");
+				user.setUserId(rs.getInt("userID"));
+				user.setUserName(rs.getString("userName"));
+				user.setIni(rs.getString("ini"));
+				user.setCpr(rs.getString("cpr"));
+				user.setPassword(rs.getString("password"));
 
-				System.out.println(UserId + "\t" + userName +
-						"\t" + ini + "\t" + cpr +
-						"\t\t" + password + "\t" +roles);
+				// Handling Roles
+				String roles = rs.getString("roles");
+                String[] roleArray = roles.split(":");
+
+                if (roleArray.length != 1) {
+                    for (int i = 0; i < roleArray.length; i++) {
+                        user.addRole(roleArray[i]);
+                    }
+                } else {
+                    user.addRole(roleArray[0]);
+                }
+
+				System.out.println(user);
             }
             statement.close();
             c.close();
@@ -117,7 +126,6 @@ public class DB implements IUserDAO {
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
-
 	}
 	
 	@Override
@@ -128,32 +136,38 @@ public class DB implements IUserDAO {
         try {
             Statement statement = c.createStatement();
 
-            System.out.println("Indtast id for bruger hvis oplysinger du vil opdatere.");
+            System.out.println("Enter UserID in the User that you wishes to update information on.");
             int UserID = s.nextInt();
 
-            System.out.println("Vælg hvilken type information du vil opdatere.");
-            System.out.println("Tast 1 for at opdatere brugernavn og initialer, 2 for at opdatere password og 3 for at opdatere rolle.");
+            System.out.println("Select the data you wishes to update:");
+            System.out.println("Press 1: For updating UserName and initials.");
+            System.out.println("Press 2: For at opdatere password");
+            System.out.println("Press 3: For at opdatere rolle.");
 
             int choice = s.nextInt();
             switch (choice){
                 case 1:
-                    System.out.println("Indtast nyt brugernavn: ");
+                    System.out.println("Enter new UserName: ");
                     String newUserName = s.next();
-                    System.out.println("Indtast nye initialer: ");
+                    System.out.println("Enter new initials: ");
                     String newIni = s.next();
                     statement.executeUpdate("UPDATE CDIO1 SET userName='"+ newUserName +"', ini='"+ newIni+"' WHERE userID="+UserID);
                     break;
 
                 case 2:
-                    System.out.println("Indtast nyt password: ");
+                    System.out.println("Enter new password: ");
                     String newPassword = s.next();
                     statement.executeUpdate("UPDATE CDIO1 SET password='"+ newPassword +"' WHERE userID="+UserID);
                     break;
 
                 case 3:
-                    System.out.println("Indtast nyt password: ");
+                    System.out.println("Enter new role: ");
                     String newRole = s.next();
                     statement.executeUpdate("UPDATE CDIO1 SET roles='"+ newRole +"' WHERE userID="+UserID);
+                    break;
+
+                default:
+                    System.out.println("Wrong input, try again");
                     break;
             }
 
@@ -173,7 +187,7 @@ public class DB implements IUserDAO {
         try {
             Statement statement = c.createStatement();
 
-            System.out.println("Indtast id for den bruger du gerne vil slette");
+            System.out.println("Enter the UserID for the User you wishes to delete");
             int UserID = s.nextInt();
 
             statement.executeUpdate("DELETE FROM CDIO1 WHERE userID="+UserID);

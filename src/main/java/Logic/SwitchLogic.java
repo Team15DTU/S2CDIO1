@@ -103,16 +103,19 @@ public class SwitchLogic {
     //click 4: delete user
     public void delete() {
         Scanner scan = new Scanner(System.in);
+
         System.out.println("Enter the user ID of the user you want to delete");
         int choice = scan.nextInt();
+        String userNameToDelete;
         try {
-            System.out.println("Are you sure you want to delete: " + iUserDAO.getUser(choice).getUserName() + "?");
-            System.out.println("Click 1 to enter, click 2 to skip");
-            int choice2 = scan.nextInt();
-            if (choice2 == 1) {
+            userNameToDelete = iUserDAO.getUser(choice).getUserName();
+            System.out.println("Are you sure you want to delete: " + userNameToDelete + "? (Y/N)");
+            String yesOrNo = scan.next();
+            if (yesOrNo.toUpperCase().equals("Y")) {
                 iUserDAO.deleteUser(choice);
+                System.out.println(userNameToDelete+ " DID get deleted");
             } else {
-                System.out.println(iUserDAO.getUser(choice).getUserName() + "didn't get deleted.");
+                System.out.println(iUserDAO.getUser(choice).getUserName() + " DIDN'T get deleted.");
             }
 
         } catch (IUserDAO.DALException ex) {
@@ -121,12 +124,17 @@ public class SwitchLogic {
     }
 
     // click 6: Check password
-    public void checkPassword (UserDAO dao) {
+    public void checkPassword () {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Write index of the user you want to check password on");
-        int nr = scan.nextInt();
+        System.out.println("Write UserID of the User who's password you want to check.");
+        int userIDToCheck = scan.nextInt();
         try {
-            System.out.println(dao.getUser(nr).getPassword());
+            UserDTO userToChheck = iUserDAO.getUser(userIDToCheck);
+            if (userToChheck.passwordChecker()) {
+                System.out.println("The User: " + userToChheck.getUserName() + " is VALID");
+            } else {
+                System.out.println("The User: " + userToChheck.getUserName() + " is INVALID");
+            }
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }

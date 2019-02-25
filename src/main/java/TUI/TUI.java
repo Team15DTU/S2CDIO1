@@ -30,9 +30,8 @@ public class TUI {
         }
     }
 
-
     // ---------------------- Private Method ------------------------
-    // Menu beskederne
+    // Menu messages
 
     private void startMenu() {
         System.out.println();
@@ -80,16 +79,9 @@ public class TUI {
 
             // 6. Check Password for a User.
             case 6:
-                Scanner scan = new Scanner(System.in);
-                System.out.println("Write index of the user you want to check password on");
-                int nr = scan.nextInt();
-                try {
-                    System.out.println(DB_interface.getUser(nr).getPassword());
-                }
-                catch (IUserDAO.DALException ex) {
-                    System.out.println(ex);
-                }
+                SL.checkPassword();
                 break;
+
             default:
                 System.out.println("Please enter a valid input");
                 System.out.println();
