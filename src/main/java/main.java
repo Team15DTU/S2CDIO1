@@ -1,20 +1,15 @@
-import TUI.TUI;
-import data.Database.DBController;
-
-/**
- * @author Rasmus Sander Larsen
- */
+import data.DB;
+import data.dal.IUserDAO;
+import data.dto.UserDTO;
 
 public class main {
-
-    public static void main(String[] args) {
-
-        DBController dbController = new DBController();
-        dbController.startUpAndDBSelector();
-
-        TUI textUserInterface = new TUI(dbController.getDB());
-        textUserInterface.TUI();
-
+    public static void main(String[] args) throws IUserDAO.DALException {
+        DB db = new DB();
+        //TODO db.getUser gør ikke noget den står der bare for noget test. (kan fjernes)
+        //db.getUser(2);
+        //db.getUserList();
+        //db.createUser(db.getUser(999));
+        //db.updateUser(db.getUser(999));
+        //db.Test();
     }
-
 }
