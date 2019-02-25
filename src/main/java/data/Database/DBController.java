@@ -25,15 +25,44 @@ public class DBController {
 
     public DBController(){
 
-        startUpAndDBSelector();
-
     }
+
+
+    /*
+    -------------------------- Getters & Setters ---------------------
+     */
+
+    // region Getters & Setters
+
+    public IUserDAO getDB() {
+        return DB;
+    }
+
+    public void setDB(IUserDAO DB) {
+        this.DB = DB;
+    }
+
+    // endregion
 
     /*
     --------------------------Public methods--------------------------
      */
 
+    public void startUpAndDBSelector (){
+        Scanner input = new Scanner(System.in);
+        int choice;
 
+        do {
+            System.out.println("Choose which database you would like to use:");
+            System.out.println("1. DAO-Database (Don't(!) saves data)");
+            System.out.println("2. File-Database (Saves data)");
+            System.out.println("3. SQL-Database (Saves data)");
+            System.out.print("Your choice: ");
+
+            choice = input.nextInt();
+        }
+        while (!DBSwitch(choice));
+    }
 
     /*
     --------------------------Private methods--------------------------
@@ -43,40 +72,35 @@ public class DBController {
     private void SQLDatabase (){
         // TODO: Set DB to the correct SQL_DB class
 
+
+
+        System.out.println("Your selected SQL as Database type.");
+
     }
 
     private void DAODatabase (){
         // TODO: Set DB to the correct DAO_DB class
+
+        DB = new UserDAO();
+
+        System.out.println("You selected DAO as Database type.");
 
     }
 
     private void FileDatabase () {
         // TODO: Set DB to the correct File_DB class
 
+
+
+        System.out.println("You selected File as Database type.");
     }
 
-    private void startUpAndDBSelector (){
-        Scanner input = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("Choose which database you would like to open:");
-            System.out.println("1. DAO-Database (Don't(!) saves data)");
-            System.out.println("2. File-Database (Saves data)");
-            System.out.println("3. SQL-Database (Saves data)");
-            System.out.print("Your choice: ");
-
-            choice = input.nextInt();
-        }
-        while (DBSwitch(choice));
-
-    }
 
     private boolean DBSwitch (int menuChoice) {
 
         switch (menuChoice){
 
-            // DAO-Database (Arraylist)
+            // DAO-Database (ArrayList)
             case 1:
                 DAODatabase();
                 return true;
