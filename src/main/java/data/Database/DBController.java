@@ -1,6 +1,7 @@
 package data.Database;
 
 import TUI.TUI;
+import data.dao.IUserDAO;
 import data.dao.UserDAO;
 import data.dto.UserDTO;
 
@@ -16,34 +17,22 @@ public class DBController {
     ----------------------------Fields-------------------------
      */
 
-    UserDAO userDAO;
-    UserDTO userDTO;
-    TUI tui;
-
-
+    IUserDAO DB;
 
     /*
     --------------------------Contructor--------------------------
      */
 
-
     public DBController(){
-        userDAO = new UserDAO();
-        userDTO = new UserDTO();
-        tui = new TUI();
+
+        startUpAndDBSelector();
+
     }
-
-
 
     /*
     --------------------------Public methods--------------------------
      */
 
-
-    public void startup(DBController dbController) {
-        startUpSwitchLogic(dbController);
-
-    }
 
 
     /*
@@ -52,48 +41,60 @@ public class DBController {
 
 
     private void SQLDatabase (){
-        tui.TUI();
+        // TODO: Set DB to the correct SQL_DB class
 
     }
 
-    private void DTODatabase (){
-        tui.TUI();
+    private void DAODatabase (){
+        // TODO: Set DB to the correct DAO_DB class
 
     }
 
-    private void HashmapDatabase () {
-        tui.TUI();
+    private void FileDatabase () {
+        // TODO: Set DB to the correct File_DB class
 
     }
 
-    private void startUpSwitchLogic (DBController dbController){
+    private void startUpAndDBSelector (){
         Scanner input = new Scanner(System.in);
+        int choice;
 
-        System.out.println("Choose which database you would like to open:");
-        System.out.println("1. SQL-Database");
-        System.out.println("2. DTO-Database");
-        System.out.println("3. Hashmap-Database");
+        do {
+            System.out.println("Choose which database you would like to open:");
+            System.out.println("1. DAO-Database (Don't(!) saves data)");
+            System.out.println("2. File-Database (Saves data)");
+            System.out.println("3. SQL-Database (Saves data)");
+            System.out.print("Your choice: ");
 
-        switch (input.next()){
-
-            case "1":
-                //SQLDatabase startup
-                dbController.SQLDatabase();
-                break;
-
-            case "2":
-                //Ikke persistent DTODatabase startup
-                dbController.DTODatabase();
-                break;
-            case "3":
-                //HashmapDatabase startup
-                dbController.HashmapDatabase();
-                break;
-                default:
-                    System.out.println("Wrong input, try again");
-                    startUpSwitchLogic(dbController);
+            choice = input.nextInt();
         }
+        while (DBSwitch(choice));
 
+    }
+
+    private boolean DBSwitch (int menuChoice) {
+
+        switch (menuChoice){
+
+            // DAO-Database (Arraylist)
+            case 1:
+                DAODatabase();
+                return true;
+
+            // File-Database (HashMap % CSV-File)
+            case 2:
+                FileDatabase();
+                return true;
+
+            // SQL-Database
+            case 3:
+                SQLDatabase();
+                return true;
+
+            default:
+                System.out.println("Wrong input, try again");
+                return false;
+        }
 
     }
 
