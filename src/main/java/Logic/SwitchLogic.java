@@ -1,6 +1,5 @@
 package Logic;
 
-import data.dao.UserDAO;
 import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
@@ -81,20 +80,30 @@ public class SwitchLogic {
 
     //click 3: update user
     public void update() {
+        Scanner scan = new Scanner(System.in);
+        UserDTO userDTOToUpdate;
+
+        int menuSelector;
+
         try {
-            Scanner scan = new Scanner(System.in);
             System.out.println("Enter user ID");
-            int userID = scan.nextInt();
-            UserDTO user = iUserDAO.getUser(userID);
-            System.out.println("UserId: "+ user.getUserId());
+            int userIDToUpdate = scan.nextInt();
+            userDTOToUpdate = iUserDAO.getUser(userIDToUpdate);
+            System.out.println("User to update: "+ userDTOToUpdate.getUserName());
 
-            //TODO: Burde muligvis være sin egen menu .
-            System.out.println("Current UserName: "+ user.getUserName());
-            System.out.println("Enter new UserName below and press Enter:");
-            String newUserName = scan.next();
-            user.setUserName(newUserName);
+            do {
+                System.out.println("Press 1: Update UserName \t\t\tCurrent UserName: " + userDTOToUpdate.getUserName());
+                System.out.println("Press 2: Update Initials \t\t\tCurrent Initials: " + userDTOToUpdate.getIni());
+                System.out.println("Press 3: Update Roles    \t\t\tCurrent Roles:    " + userDTOToUpdate.getRoles());
+                System.out.println("Press 4: Update Password \t\t\tCurrent Password  " + userDTOToUpdate.getPassword());
 
-            iUserDAO.updateUser(user);
+                menuSelector = scan.nextInt();
+                updateActionSwitch(userDTOToUpdate,menuSelector);
+
+            } while (menuSelector >=1 && menuSelector <= 4);
+
+            iUserDAO.updateUser(userDTOToUpdate);
+
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
         }
@@ -129,11 +138,11 @@ public class SwitchLogic {
         System.out.println("Write UserID of the User who's password you want to check.");
         int userIDToCheck = scan.nextInt();
         try {
-            UserDTO userToChheck = iUserDAO.getUser(userIDToCheck);
-            if (userToChheck.passwordChecker()) {
-                System.out.println("The User: " + userToChheck.getUserName() + " is VALID");
+            UserDTO userToCheck = iUserDAO.getUser(userIDToCheck);
+            if (userToCheck.passwordChecker()) {
+                System.out.println("The User: " + userToCheck.getUserName() + " is VALID");
             } else {
-                System.out.println("The User: " + userToChheck.getUserName() + " is INVALID");
+                System.out.println("The User: " + userToCheck.getUserName() + " is INVALID");
             }
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
@@ -153,5 +162,74 @@ public class SwitchLogic {
 
 
     // ------------------- SUPPORT METHODS -------------------------
+
+    private void updateActionSwitch (UserDTO userDTO, int menuSelector) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        switch (menuSelector) {
+
+            // 1: Update UserName.
+            case 1 :
+                System.out.println("Enter the UserName you wishes to change to: (no spaces)");
+                String newUserName = scanner.next();
+                userDTO.setUserName(newUserName);
+                System.out.println("UserName is updated to: " + userDTO.getUserName());
+                break;
+
+            // 2: Update Initials.
+            case 2 :
+                System.out.println("Enter the Initials you wishes to change to:");
+                String newInitials = scanner.next();
+                userDTO.setIni(newInitials.toUpperCase());
+                System.out.println("Initials is updated to: " + userDTO.getIni());
+                break;
+
+            // 3: Update Roles.
+            case 3:
+                System.out.println("Press 1: To add a new role.");
+                System.out.println("Press 2: TO delete a role.");
+                int roleMenuSelector = scanner.nextInt();
+                roleUpdateAction(userDTO,roleMenuSelector);
+                break;
+
+            // 4: Update Password.
+            case 4:
+                System.out.println("Enter the Password you wishes to change to:");
+                String newPassword = scanner.next();
+                userDTO.setPassword(newPassword);
+                System.out.println("Password is updated to: " + newPassword);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void roleUpdateAction (UserDTO userDTO, int rolesMenuSelected) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        switch (rolesMenuSelected) {
+
+            // Add Role
+            case 1:
+                System.out.println("Enter name on Role that you wishes to add, (Current roles: " + userDTO.getRoles() +").");
+                String addRole = scanner.next();
+                userDTO.addRole(addRole);
+                System.out.println(addRole + " have been added to " + userDTO.getUserName() + "'s list of roles");
+
+            // Delete Role
+            case 2:
+                System.out.println("Enter name on role that you wishes to delete, (Current roles: " + userDTO.getRoles() + ").");
+                String deleteRole = scanner.next();
+                userDTO.addRole(deleteRole);
+                System.out.println(deleteRole + " have been deleted from " + userDTO.getUserName() + "'s list of roles");
+
+            default:
+                System.out.println("Wrong input in method roleUpdateAction() in SwitchLogic.java");
+                break;
+        }
+    }
 
 }
