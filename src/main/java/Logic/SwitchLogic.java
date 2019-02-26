@@ -3,7 +3,6 @@ package Logic;
 import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -67,11 +66,14 @@ public class SwitchLogic {
             System.out.println(ex);
         }
 
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ALL USERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         for (UserDTO tempUser : userDTOList) {
             System.out.println("UserID: "+tempUser.getUserId() + " UserName: " + tempUser.getUserName() +
                     " Ini: " + tempUser.getIni() + " Cpr: " + tempUser.getCpr() +
                     " Password: " + tempUser.getPassword() + " Role: " +tempUser.getRoles());
         }
+
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
     //click 3: update user
@@ -82,21 +84,22 @@ public class SwitchLogic {
         int menuSelector;
 
         try {
-            System.out.println("Enter user ID");
+            System.out.println("Enter userID of User you wishes to update information on:");
             int userIDToUpdate = scan.nextInt();
             userDTOToUpdate = iUserDAO.getUser(userIDToUpdate);
-            System.out.println("User to update: "+ userDTOToUpdate.getUserName());
+
 
             do {
+                System.out.println("Users information to update: "+ userDTOToUpdate.getUserName() + "\n");
                 System.out.println("Press 1: Update UserName \t\t\tCurrent UserName: " + userDTOToUpdate.getUserName());
                 System.out.println("Press 2: Update Initials \t\t\tCurrent Initials: " + userDTOToUpdate.getIni());
                 System.out.println("Press 3: Update Roles    \t\t\tCurrent Roles:    " + userDTOToUpdate.getRoles());
                 System.out.println("Press 4: Update Password \t\t\tCurrent Password: " + userDTOToUpdate.getPassword());
-
+                System.out.println("\nPress 5: To go back to main menu\n");
                 menuSelector = scan.nextInt();
                 updateActionSwitch(userDTOToUpdate,menuSelector);
 
-            } while (menuSelector >=1 && menuSelector <= 4);
+            } while (menuSelector != 5);
 
             iUserDAO.updateUser(userDTOToUpdate);
 
@@ -214,7 +217,7 @@ public class SwitchLogic {
             // 3: Update Roles.
             case 3:
                 System.out.println("Press 1: To add a new role.");
-                System.out.println("Press 2: TO delete a role.");
+                System.out.println("Press 2: To delete a role.");
                 int roleMenuSelector = scanner.nextInt();
                 roleUpdateAction(userDTO,roleMenuSelector);
                 break;
@@ -225,6 +228,9 @@ public class SwitchLogic {
                 String newPassword = scanner.next();
                 userDTO.setPassword(newPassword);
                 System.out.println("Password is updated to: " + newPassword);
+                break;
+
+            case 5:
                 break;
 
             default:
