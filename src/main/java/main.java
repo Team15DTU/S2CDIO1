@@ -6,7 +6,7 @@ public class main {
     public static void main(String[] args) throws IUserDAO.DALException {
 
         DBController dbController = new DBController();
-        dbController.startUpAndDBSelector();
+        dbController.startUpAndRunDBSelector();
 
         TUI textUserInterface = new TUI(dbController.getDB());
         textUserInterface.TUI();

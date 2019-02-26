@@ -38,7 +38,7 @@ public class UserDAO implements IUserDAO {
 
         UserDTO user;
 
-        for (int i = 0; i<userDTOList.size(); i++) {
+        for (int i = 0; i < userDTOList.size(); i++) {
             if (userId == userDTOList.get(i).getUserId()) {
                 user = userDTOList.get(i);
                 return user;

@@ -17,16 +17,13 @@ public class DBController {
     ----------------------------Fields-------------------------
      */
 
-    IUserDAO DB;
+    private IUserDAO DB;
 
     /*
-    --------------------------Contructor--------------------------
+    -------------------------- Constructor -------------------------
      */
 
-    public DBController(){
-
-    }
-
+    public DBController(){}
 
     /*
     -------------------------- Getters & Setters ---------------------
@@ -48,7 +45,7 @@ public class DBController {
     --------------------------Public methods--------------------------
      */
 
-    public void startUpAndDBSelector (){
+    public void startUpAndRunDBSelector(){
         Scanner input = new Scanner(System.in);
         int choice;
 
@@ -68,57 +65,31 @@ public class DBController {
     --------------------------Private methods--------------------------
      */
 
-
-    private void SQLDatabase (){
-
-        DB = new SQL_DB();
-
-        System.out.println("Your selected SQL as Database type.");
-
-    }
-
-    // CHOOSE: 1
-    private void DAODatabase (){
-
-        DB = new UserDAO();
-
-        System.out.println("You selected DAO as Database type.");
-
-    }
-
-    private void FileDatabase () {
-
-        DB = new FileDBController();
-
-        System.out.println("You selected File as Database type.");
-    }
-
-
     private boolean DBSwitch (int menuChoice) {
 
         switch (menuChoice){
 
             // DAO-Database (ArrayList)
             case 1:
-                DAODatabase();
+                DB = new UserDAO();
+                System.out.println("You selected DAO as Database type.");
                 return true;
 
             // File-Database (HashMap % CSV-File)
             case 2:
-                FileDatabase();
+                DB = new FileDBController();
+                System.out.println("You selected File as Database type.");
                 return true;
 
             // SQL-Database
             case 3:
-                SQLDatabase();
+                DB = new SQL_DB();
+                System.out.println("Your selected SQL as Database type.");
                 return true;
 
             default:
                 System.out.println("Wrong input, try again");
                 return false;
         }
-
     }
-
-
 }

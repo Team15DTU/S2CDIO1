@@ -57,41 +57,30 @@ public class SQL_DB implements IUserDAO {
 		return userDTOList;
 	}
 
-	//TODO: DENNE METODE SKAL FIXES!!
 	@Override
 	public void createUser(UserDTO user) throws DALException {
 
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("INSERT INTO CDIO1 VALUES (");
 
-        Scanner s = new Scanner(System.in);
+        //Adds all user information, except List<String> roles.
+        queryBuilder.append(user.getUserId() + ",");
+        queryBuilder.append("\"" + user.getUserName() + "\",");
+        queryBuilder.append("\"" + user.getIni() + "\",");
+        queryBuilder.append("\"" + user.getCpr() + "\",");
+        queryBuilder.append("\"" + user.getPassword() + "\",");
+        queryBuilder.append("\"" + makeStringFromStringList(user.getRoles()) + "\"");
+        queryBuilder.append(")");
 
-        try (Connection c = createConnection()) {
-            Statement statement = c.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT MAX(userID) FROM CDIO1");
-            while (rs.next()) {
-                int MaxID = rs.getInt(1);
-                System.out.println("Vælg et user id der skal være imellem "+ MaxID +" og 99");
-            }
-            System.out.println("Indtast bruger id:");
-            int UserID = s.nextInt();
-            System.out.println("Indtast brugernavn:");
-            String UserName = s.next();
-            System.out.println("Indtast initialer");
-            String Ini = s.next();
-            System.out.println("Indtast cpr nummer eks. 123456-1234");
-            String Cpr = s.next();
-            System.out.println("Indtast password");
-            String Password = s.next();
-            System.out.println("Indtast rolle");
-            String Roles = s.next();
+        // Uses the UpdateQuery to Insert UserDTO info into Table.
+        try (Connection c = createConnection()) {Statement statement = c.createStatement();
 
-            statement.executeUpdate("INSERT INTO CDIO1 (userID, userName, ini, cpr, password, roles)" + " VALUES ("+UserID+", '"+UserName+"', '"+Ini+"', '"+Cpr+"', '"+Password+"', '"+Roles+"')");
-
-            statement.close();
+            statement.executeUpdate(queryBuilder.toString());
 
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
-	}
+    }
 	
 	@Override
 	public void updateUser(UserDTO user) throws DALException {
