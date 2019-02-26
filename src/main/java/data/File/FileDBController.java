@@ -74,7 +74,10 @@ public class FileDBController implements IUserDAO {
 
     public void updateUser(UserDTO user) {
 
+        // Removes the User in the Hashmap with a UserID matching the inputted Users UserID.
         fileDB.getFileHashMap().remove(user.getUserId());
+
+        // Adds the inputted UserDTO object into the HashMap with UserId as key.
         fileDB.getFileHashMap().put(user.getUserId(), user);
 
     }
@@ -86,14 +89,13 @@ public class FileDBController implements IUserDAO {
     }
 
     public List<UserDTO> getUserList () {
-
         List<UserDTO> userList = new ArrayList<>();
 
         for (int userID : fileDB.getFileHashMap().keySet()) {
 
             userList.add(fileDB.getFileHashMap().get(userID));
-
         }
+
         return userList;
     }
 
@@ -101,6 +103,9 @@ public class FileDBController implements IUserDAO {
         writer.writeToFile(fileDB.getFileHashMap());
         writer.setFilePath(writer.getFilePath().replace( "/src/main/resources/","/target/classes/"));
         writer.writeToFile(fileDB.getFileHashMap());
+
+        System.out.println("Så er alle UserDTO'er fra HashMap'et skrevet til filen....");
+
     }
     
     /*

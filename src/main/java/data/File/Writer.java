@@ -79,8 +79,6 @@ public class Writer {
                 bufferedWriter.write(tempUserInfo.toString());
             }
 
-            System.out.println("Så er alle UserDTO'er fra HashMap'et skrevet til filen....");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
