@@ -216,7 +216,7 @@ public class SwitchLogic {
             case 2:
                 System.out.println("Enter name on role that you wishes to delete, (Current roles: " + userDTO.getRoles() + ").");
                 String deleteRole = scanner.next();
-                userDTO.addRole(deleteRole);
+                userDTO.removeRole(deleteRole);
                 System.out.println(deleteRole + " have been deleted from " + userDTO.getUserName() + "'s list of roles");
                 break;
 

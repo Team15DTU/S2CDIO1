@@ -64,7 +64,7 @@ public class SQL_DB implements IUserDAO {
 
         Scanner s = new Scanner(System.in);
 
-        try (Connection c = createConnection();) {
+        try (Connection c = createConnection()) {
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("SELECT MAX(userID) FROM CDIO1");
             while (rs.next()) {
