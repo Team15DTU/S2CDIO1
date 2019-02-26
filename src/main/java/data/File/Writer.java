@@ -26,7 +26,6 @@ public class Writer {
 
         filePath = setupFilePath(fileName);
 
-        System.out.println(filePath);
     }
     
     /*

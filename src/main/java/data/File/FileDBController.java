@@ -60,6 +60,7 @@ public class FileDBController implements IUserDAO {
      * Adds a UserDTO to the HashMap in FileDB.java on a keyvalue matching the UserDTO.UserID.
      * @param userDTO the User that is added.
      */
+
     public void createUser(UserDTO userDTO) {
 
         fileDB.getFileHashMap().put(userDTO.getUserId(),userDTO);
