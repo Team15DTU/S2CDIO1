@@ -118,8 +118,8 @@ public class FileDB {
         tempUser.setUserName(stringInfoArray[1]);
         tempUser.setIni(stringInfoArray[2]);
         tempUser.setCpr(stringInfoArray[3]);
-        tempUser.setRoles(makeListOfStringsFromString(stringInfoArray[4]));
-        tempUser.setPassword(stringInfoArray[5]);
+        tempUser.setPassword(stringInfoArray[4]);
+        tempUser.setRoles(makeListOfStringsFromString(stringInfoArray[5]));
 
         // Adds tempUser object to HashMap
         hashMap.put(tempUser.getUserId(), tempUser);

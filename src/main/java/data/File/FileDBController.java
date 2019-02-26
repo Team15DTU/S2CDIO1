@@ -105,7 +105,7 @@ public class FileDBController implements IUserDAO {
         writer.setFilePath(writer.getFilePath().replace( "/src/main/resources/","/target/classes/"));
         writer.writeToFile(fileDB.getFileHashMap());
 
-        System.out.println("Så er alle UserDTO'er fra HashMap'et skrevet til filen....");
+        System.out.println("\n... All UserDTO's from the HashMap has been saved to the CSV-file.");
 
     }
     
