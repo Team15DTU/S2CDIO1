@@ -3,6 +3,7 @@ package Logic;
 import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -132,15 +133,48 @@ public class SwitchLogic {
         Scanner scan = new Scanner(System.in);
         System.out.println("Write UserID of the User who's password you want to check.");
         int userIDToCheck = scan.nextInt();
+        String userNameOnUserToCheck = null;
+
+        int[] noOfCharsPassed = new int[3];
+
         try {
-            UserDTO userToCheck = iUserDAO.getUser(userIDToCheck);
-            if (userToCheck.passwordChecker()) {
-                System.out.println(userToCheck.getUserName() + "'s password is VALID");
+
+            UserDTO userDTOToCheck = iUserDAO.getUser(userIDToCheck);
+            userNameOnUserToCheck = userDTOToCheck.getUserName();
+            noOfCharsPassed = userDTOToCheck.checkAndEachTypeOfCharInPassword(userDTOToCheck.getPassword());
+
+        } catch (IUserDAO.DALException e) {
+            System.out.println(e);
+        }
+
+        if (noOfCharsPassed[0] != 0 && noOfCharsPassed[1] != 0 && noOfCharsPassed[2] != 0) {
+            System.out.println(userNameOnUserToCheck + "'s password is VALID");
+            System.out.println("Password contain uppercase letters [✓]");
+            System.out.println("Password contain lowercase letters [✓]");
+            System.out.println("Password contain numbers letters   [✓]");
+        } else {
+            System.out.println(userNameOnUserToCheck + "'s password is INVALID");
+
+            // Check for numbers
+            if (noOfCharsPassed[0] == 0) {
+                System.out.println("Password contain numbers           [✗]");
             } else {
-                System.out.println(userToCheck.getUserName() + "'s password is INVALID");
+                System.out.println("Password contain numbers           [✓]");
             }
-        } catch (IUserDAO.DALException ex) {
-            System.out.println(ex);
+
+            // Check for Uppercase letters
+            if (noOfCharsPassed[1] == 0) {
+                System.out.println("Password contain uppercase letters [✗]");
+            } else {
+                System.out.println("Password contain uppercase letters [✓]");
+            }
+
+            // Check for LowerCase letters
+            if (noOfCharsPassed[2] == 0) {
+                System.out.println("Password contain lowercase letters [✗]");
+            } else {
+                System.out.println("Password contain lowercase letters [✓]");
+            }
         }
     }
 

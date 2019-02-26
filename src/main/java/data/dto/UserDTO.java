@@ -95,19 +95,6 @@ public class UserDTO implements Serializable{
 
 	// ---------------------- Public Method ----------------------
 
-	public boolean passwordChecker () {
-		boolean passwordBoolean;
-		int[] noOfCharsPassed = checkAndEachTypeOfCharInPassword(password);
-
-		if (noOfCharsPassed[0] != 0 && noOfCharsPassed[1] != 0 && noOfCharsPassed[2] != 0) {
-			passwordBoolean = true;
-		} else {
-			passwordBoolean = false;
-		}
-
-		return passwordBoolean;
-	}
-
 	/**
 	 * Adds role
 	 * @param role
@@ -131,6 +118,25 @@ public class UserDTO implements Serializable{
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", userName=" + userName + ", ini=" + ini + ", roles=" + roles + "]";
 	}
+
+	public int[] checkAndEachTypeOfCharInPassword (String password) {
+		int[] charTypeCounter = {0,0,0};
+
+		for (int i = 0; i < password.length(); i++) {
+			int tempACSIIValueOfChar = password.charAt(i);
+			if (tempACSIIValueOfChar >= 48 && tempACSIIValueOfChar <= 57) {
+				charTypeCounter[0]++;
+			} else if (tempACSIIValueOfChar >=65 && tempACSIIValueOfChar <= 90) {
+				charTypeCounter[1]++;
+			} else if (tempACSIIValueOfChar >= 97 && tempACSIIValueOfChar <= 122) {
+				charTypeCounter[2]++;
+			}
+		}
+		return charTypeCounter;
+	}
+
+
+
 
 	// ------------------- SUPPORT METHODS --------------------
 
@@ -179,21 +185,4 @@ public class UserDTO implements Serializable{
 
 		return passwordBuilder.toString();
 	}
-
-	private int[] checkAndEachTypeOfCharInPassword (String password) {
-		int[] charTypeCounter = {0,0,0};
-
-		for (int i = 0; i < password.length(); i++) {
-			int tempACSIIValueOfChar = password.charAt(i);
-			if (tempACSIIValueOfChar >= 48 && tempACSIIValueOfChar <= 57) {
-				charTypeCounter[0]++;
-			} else if (tempACSIIValueOfChar >=65 && tempACSIIValueOfChar <= 90) {
-				charTypeCounter[1]++;
-			} else if (tempACSIIValueOfChar >= 97 && tempACSIIValueOfChar <= 122) {
-				charTypeCounter[2]++;
-			}
-		}
-		return charTypeCounter;
-	}
-
 }
