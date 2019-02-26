@@ -108,15 +108,10 @@ public class SQL_DB implements IUserDAO {
 	@Override
 	public void deleteUser(int userId) throws DALException {
 
-        Scanner s = new Scanner(System.in);
-
         try (Connection c = createConnection()) {
             Statement statement = c.createStatement();
 
-            System.out.println("Enter the UserID for the User you wishes to delete");
-            int UserID = s.nextInt();
-
-            statement.executeUpdate("DELETE FROM CDIO1 WHERE userID="+UserID);
+            statement.executeUpdate("DELETE FROM CDIO1 WHERE userID="+userId);
         }
         catch (SQLException e) {
             throw new DALException(e.getMessage());
