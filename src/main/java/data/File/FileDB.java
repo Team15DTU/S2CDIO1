@@ -110,25 +110,31 @@ public class FileDB {
 
     private void infoArrayIntoHashMap (HashMap<Integer,UserDTO> hashMap, String[] stringInfoArray) {
 
-        // Gets UserID.
-        String tempUserID = stringInfoArray[0];
-        int tempUserID_int = Integer.parseInt(tempUserID);
+        UserDTO tempUser = new UserDTO();
 
-        // Loads user Roles
-        List<String> roles = new ArrayList<>();
-        String[] roleArray = stringInfoArray[5].split(":");
+        // Sets values for tempUser.
+
+        tempUser.setUserId(Integer.parseInt(stringInfoArray[0]));
+        tempUser.setUserName(stringInfoArray[1]);
+        tempUser.setIni(stringInfoArray[2]);
+        tempUser.setCpr(stringInfoArray[3]);
+        tempUser.setRoles(makeListOfStringsFromString(stringInfoArray[4]));
+        tempUser.setPassword(stringInfoArray[5]);
+
+        // Adds tempUser object to HashMap
+        hashMap.put(tempUser.getUserId(), tempUser);
+
+    }
+
+    private List<String> makeListOfStringsFromString(String listAsString) {
+
+        List<String> list = new ArrayList<>();
+        String[] roleArray = listAsString.split(":");
 
         for (String role : roleArray){
-            roles.add(role);
+            list.add(role);
         }
-
-        //Creates new user from the collected data.
-        UserDTO tempUser = new UserDTO(tempUserID_int,stringInfoArray[1],stringInfoArray[2],
-                    stringInfoArray[3], stringInfoArray[5]);
-
-        // Adds User object to HashMap
-        hashMap.put(Integer.parseInt(stringInfoArray[0]), tempUser);
-
+        return list;
     }
 
 }
