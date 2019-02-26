@@ -40,7 +40,7 @@ public class TUI {
         System.out.println("2. Show users");
         System.out.println("3. Update user");
         System.out.println("4. Remove user");
-        System.out.println("5. Close the program");
+        System.out.println("5. Close the program (Saves Data)");
         System.out.println("6. Check password of a user");
     }
 
@@ -58,7 +58,7 @@ public class TUI {
 
             // 2. Show Users.
             case 2: //some thing
-                SL.Print();
+                SL.showUsers();
                 break;
 
             // 3. Update User.

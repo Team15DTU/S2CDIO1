@@ -1,7 +1,7 @@
 package data.Database;
 
 import data.File.FileDBController;
-import data.conn.DB;
+import data.conn.SQL_DB;
 import data.dao.IUserDAO;
 import data.dao.UserDAO;
 
@@ -70,9 +70,9 @@ public class DBController {
 
 
     private void SQLDatabase (){
-        // TODO: Set DB to the correct SQL_DB class
+        // TODO: Set SQL_DB to the correct SQL_DB class
 
-        DB = new DB();
+        DB = new SQL_DB();
 
         System.out.println("Your selected SQL as Database type.");
 
@@ -80,7 +80,7 @@ public class DBController {
 
     // CHOOSE: 1
     private void DAODatabase (){
-        // TODO: Set DB to the correct DAO_DB class
+        // TODO: Set SQL_DB to the correct DAO_DB class
 
         DB = new UserDAO();
 
@@ -89,7 +89,7 @@ public class DBController {
     }
 
     private void FileDatabase () {
-        // TODO: Set DB to the correct File_DB class
+        // TODO: Set SQL_DB to the correct File_DB class
 
         DB = new FileDBController();
 

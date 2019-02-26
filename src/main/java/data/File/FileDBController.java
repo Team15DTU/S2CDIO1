@@ -74,6 +74,9 @@ public class FileDBController implements IUserDAO {
 
     public void updateUser(UserDTO user) {
 
+        fileDB.getFileHashMap().remove(user.getUserId());
+        fileDB.getFileHashMap().put(user.getUserId(), user);
+
     }
 
     public void deleteUser(int userID) {
@@ -91,11 +94,10 @@ public class FileDBController implements IUserDAO {
             userList.add(fileDB.getFileHashMap().get(userID));
 
         }
-
         return userList;
     }
 
-    public void shutdown () throws DALException {
+    public void shutdown () {
         writer.writeToFile(fileDB.getFileHashMap());
         writer.setFilePath(writer.getFilePath().replace( "/src/main/resources/","/target/classes/"));
         writer.writeToFile(fileDB.getFileHashMap());

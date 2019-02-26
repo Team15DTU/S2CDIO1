@@ -3,6 +3,8 @@ package Logic;
 import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SwitchLogic {
@@ -55,26 +57,19 @@ public class SwitchLogic {
 
     //click 2: print user list
 
-    public void Print() {
-        Scanner scan = new Scanner(System.in);
-        int p = 0;
+    public void showUsers() {
+        List<UserDTO> userDTOList = new ArrayList<>();
+
         try {
-            p = iUserDAO.getUserList().size();
+            userDTOList = iUserDAO.getUserList();
         } catch (IUserDAO.DALException ex) {
-
             System.out.println(ex);
-
         }
 
-        for (int i = 0; i < p; i++) {
-            try {
-                System.out.print(iUserDAO.getUserList().get(i).getUserId()+ ", ");
-                System.out.print(iUserDAO.getUserList().get(i).getUserName()+ ", ");
-                System.out.print(iUserDAO.getUserList().get(i).getIni()+ ", ");
-                System.out.println(iUserDAO.getUserList().get(i).getRoles());
-            } catch (IUserDAO.DALException ex) {
-                System.out.println(ex);
-            }
+        for (UserDTO tempUser : userDTOList) {
+            System.out.println("UserID: "+tempUser.getUserId() + " UserName: " + tempUser.getUserName() +
+                    " Ini: " + tempUser.getIni() + " Cpr: " + tempUser.getCpr() +
+                    " Password: " + tempUser.getPassword() + " Role: " +tempUser.getRoles());
         }
     }
 
@@ -95,7 +90,7 @@ public class SwitchLogic {
                 System.out.println("Press 1: Update UserName \t\t\tCurrent UserName: " + userDTOToUpdate.getUserName());
                 System.out.println("Press 2: Update Initials \t\t\tCurrent Initials: " + userDTOToUpdate.getIni());
                 System.out.println("Press 3: Update Roles    \t\t\tCurrent Roles:    " + userDTOToUpdate.getRoles());
-                System.out.println("Press 4: Update Password \t\t\tCurrent Password  " + userDTOToUpdate.getPassword());
+                System.out.println("Press 4: Update Password \t\t\tCurrent Password: " + userDTOToUpdate.getPassword());
 
                 menuSelector = scan.nextInt();
                 updateActionSwitch(userDTOToUpdate,menuSelector);
@@ -140,9 +135,9 @@ public class SwitchLogic {
         try {
             UserDTO userToCheck = iUserDAO.getUser(userIDToCheck);
             if (userToCheck.passwordChecker()) {
-                System.out.println("The User: " + userToCheck.getUserName() + " is VALID");
+                System.out.println(userToCheck.getUserName() + "'s password is VALID");
             } else {
-                System.out.println("The User: " + userToCheck.getUserName() + " is INVALID");
+                System.out.println(userToCheck.getUserName() + "'s password is INVALID");
             }
         } catch (IUserDAO.DALException ex) {
             System.out.println(ex);
@@ -153,11 +148,8 @@ public class SwitchLogic {
 
     public void shutdown () {
 
-        try {
-            iUserDAO.shutdown();
-        } catch (IUserDAO.DALException e) {
-            e.printStackTrace();
-        }
+        iUserDAO.shutdown();
+
     }
 
 
@@ -218,6 +210,7 @@ public class SwitchLogic {
                 String addRole = scanner.next();
                 userDTO.addRole(addRole);
                 System.out.println(addRole + " have been added to " + userDTO.getUserName() + "'s list of roles");
+                break;
 
             // Delete Role
             case 2:
@@ -225,6 +218,7 @@ public class SwitchLogic {
                 String deleteRole = scanner.next();
                 userDTO.addRole(deleteRole);
                 System.out.println(deleteRole + " have been deleted from " + userDTO.getUserName() + "'s list of roles");
+                break;
 
             default:
                 System.out.println("Wrong input in method roleUpdateAction() in SwitchLogic.java");

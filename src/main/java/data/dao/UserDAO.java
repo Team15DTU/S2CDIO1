@@ -134,7 +134,7 @@ public class UserDAO implements IUserDAO {
 
     }
 
-    public void shutdown () throws DALException {
+    public void shutdown () {
 
     }
 
