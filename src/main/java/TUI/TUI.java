@@ -44,7 +44,10 @@ public class TUI {
         System.out.println("6. Check password of a user");
     }
 
-    //Menu switchen
+    /**
+     *  The main switch statement, that lets the user choose between 6 actions regarding the user.
+     */
+
 
     private void TheSwitch(int choice) {
 
@@ -57,17 +60,17 @@ public class TUI {
                 break;
 
             // 2. Show Users.
-            case 2: //some thing
+            case 2:
                 SL.showUsers();
                 break;
 
             // 3. Update User.
-            case 3: //some thing
+            case 3:
                 SL.update();
                 break;
 
             // 4. Delete User.
-            case 4: //some thing
+            case 4:
                 SL.delete();
                 break;
 

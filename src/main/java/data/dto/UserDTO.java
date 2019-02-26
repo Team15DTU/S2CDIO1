@@ -18,7 +18,6 @@ public class UserDTO implements Serializable{
 	private List<String> roles;
 	private String cpr;
 	private String password;
-	//TODO Add relevant fields
 
 	// ---------------------- Constructor ----------------------
 
@@ -109,6 +108,11 @@ public class UserDTO implements Serializable{
 		return passwordBoolean;
 	}
 
+	/**
+	 * Adds role
+	 * @param role
+	 */
+
 	public void addRole(String role){
 		this.roles.add(role);
 	}
@@ -121,6 +125,7 @@ public class UserDTO implements Serializable{
 	public void removeRole(String role){
 		roles.remove(role);
 	}
+
 
 	@Override
 	public String toString() {

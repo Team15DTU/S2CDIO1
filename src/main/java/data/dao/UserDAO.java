@@ -68,7 +68,7 @@ public class UserDAO implements IUserDAO {
 
         System.out.println("Click 1 to enter, click 2 to skip");
 
-        // ID (mabey remove it, coss wierd ID is imposible to find in getuser()
+        // ID
         System.out.println("Want to change User ID?");
         int choice1 = scan.nextInt();
         if (choice1 == 1) {

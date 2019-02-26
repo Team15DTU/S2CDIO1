@@ -15,7 +15,7 @@ public interface IUserDAO {
 	public class DALException extends Exception {
 
 		/**
-		 * 
+		 * DalExeption
 		 */
 		private static final long serialVersionUID = 7355418246336739229L;
 

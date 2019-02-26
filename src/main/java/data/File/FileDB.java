@@ -56,13 +56,13 @@ public class FileDB {
     // endregion
 
     /*
-    ---------------------- Public Methods -----------------------
-     */
-    
-    
-
-    /*
     ---------------------- Support Methods ----------------------
+     */
+
+    /**
+     * Sets the HashMap up
+     * @param fileName
+     * @param fileHashMap
      */
 
     private void setupHashMap (String fileName, HashMap<Integer, UserDTO> fileHashMap) {
@@ -76,6 +76,12 @@ public class FileDB {
             System.out.println("Der blev ikke fundet nogen fil i klassen \"FileDB.java\" metoden setupHashmap()");
            }
     }
+
+    /**
+     * Reads file into HashMap and splitting them with ;.
+     * @param filePath
+     * @param hashMap
+     */
 
     private void readFileIntoHashMap(String filePath, HashMap<Integer, UserDTO> hashMap) {
 
@@ -95,6 +101,12 @@ public class FileDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * The infoArray gets converted into a HashMap, so that we can use it in .csv files.
+     * @param hashMap
+     * @param stringInfoArray
+     */
 
     private void infoArrayIntoHashMap (HashMap<Integer,UserDTO> hashMap, String[] stringInfoArray) {
 

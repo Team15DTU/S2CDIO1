@@ -70,7 +70,6 @@ public class DBController {
 
 
     private void SQLDatabase (){
-        // TODO: Set SQL_DB to the correct SQL_DB class
 
         DB = new SQL_DB();
 
@@ -80,7 +79,6 @@ public class DBController {
 
     // CHOOSE: 1
     private void DAODatabase (){
-        // TODO: Set SQL_DB to the correct DAO_DB class
 
         DB = new UserDAO();
 
@@ -89,7 +87,6 @@ public class DBController {
     }
 
     private void FileDatabase () {
-        // TODO: Set SQL_DB to the correct File_DB class
 
         DB = new FileDBController();
 

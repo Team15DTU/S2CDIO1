@@ -48,6 +48,11 @@ public class Writer {
     /*
     ---------------------- Public Methods -----------------------
      */
+
+    /**
+     * Writes the info from user and builds one big string, with keys splitted with ;.
+     * @param hashMap
+     */
     
     public void writeToFile (HashMap<Integer, UserDTO> hashMap) {
 
