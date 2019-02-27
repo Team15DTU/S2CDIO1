@@ -74,10 +74,9 @@ public class UserDAO implements IUserDAO {
     @Override
     public void updateUser(UserDTO user) throws DALException {
     
-        /*******************************
-         * Find the user that is changed,
-         * and update that element.
-         *******************************/
+        /*
+        Find the user and replace with new UserDTO
+         */
         int userID = user.getUserId();
         for (int i=0; i < userDTOList.size(); i++)
         {
