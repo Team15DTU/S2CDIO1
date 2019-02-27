@@ -36,14 +36,11 @@ public class UserDAO implements IUserDAO {
     // ----------------- PUBLIC METHODS -------------------------
     @Override
     public UserDTO getUser(int userId) throws DALException {
-
-        UserDTO user;
-
-        for (int i = 0; i < userDTOList.size(); i++) {
-            if (userId == userDTOList.get(i).getUserId()) {
-                user = userDTOList.get(i);
+        
+        for (UserDTO user : userDTOList)
+        {
+            if (user.getUserId() == userId)
                 return user;
-            }
         }
         
         // Throw DALException as no one is found
