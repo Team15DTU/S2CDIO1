@@ -32,8 +32,12 @@ public class SwitchLogic {
         String userName = scan.nextLine();
         System.out.println("Enter user ini");
         String ini = scan.nextLine();
-        System.out.println("Enter CPR number (fx. 123456-1234)");
+        System.out.println("Enter CPR number (format: 123456-1234)");
         String cpr = scan.nextLine();
+        while (!cprChecker(cpr)) {
+            System.out.println("The entered cpr number DON'T match the format \"123456-1234\". Try again");
+            cpr = scan.nextLine();
+        }
         System.out.println("Enter user role");
         String userRole = scan.nextLine();
 
@@ -263,6 +267,31 @@ public class SwitchLogic {
             default:
                 System.out.println("Wrong input in method roleUpdateAction() in SwitchLogic.java");
                 break;
+        }
+    }
+
+    private boolean cprChecker (String cpr) {
+
+        if (cpr.length() == 11 ) {
+            if (((int) cpr.charAt(6) == ((int) '-'))) {
+                for (int i = 0; i < 6 ; i++) {
+                    if (((int) cpr.charAt(i)) < ((int) '0') || ((int) cpr.charAt(i)) > ((int) '9')) {
+                        return false;
+                    }
+                }
+                for (int i = 7; i < 11 ; i++) {
+                    if (((int) cpr.charAt(i)) < ((int) '0') || ((int) cpr.charAt(i)) > ((int) '9')) {
+                        return false;
+                    }
+                }
+                return true;
+
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
         }
     }
 

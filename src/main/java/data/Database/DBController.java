@@ -88,7 +88,7 @@ public class DBController {
                 return true;
 
             default:
-                System.out.println("Wrong input, try again");
+                System.out.println("Wrong input, try again\n");
                 return false;
         }
     }
