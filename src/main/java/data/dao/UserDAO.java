@@ -33,7 +33,7 @@ public class UserDAO implements IUserDAO {
 
     // endregion
 
-    // ----------------- PUBLIC METHOD -------------------------
+    // ----------------- PUBLIC METHODS -------------------------
     @Override
     public UserDTO getUser(int userId) throws DALException {
 
@@ -45,8 +45,9 @@ public class UserDAO implements IUserDAO {
                 return user;
             }
         }
-
-        return null;
+        
+        // Throw DALException as no one is found
+        throw new DALException("Wrong UserID");
     }
 
     @Override
