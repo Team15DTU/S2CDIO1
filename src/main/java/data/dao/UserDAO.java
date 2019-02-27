@@ -50,7 +50,13 @@ public class UserDAO implements IUserDAO {
     @Override
     public List<UserDTO> getUserList() throws DALException {
 
-        return userDTOList;
+        try {
+            return userDTOList;
+        }
+        catch (Exception e)
+        {
+            throw new DALException(e.getMessage());
+        }
     }
 
     @Override
