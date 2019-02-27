@@ -62,8 +62,13 @@ public class UserDAO implements IUserDAO {
     @Override
     public void createUser(UserDTO user) throws DALException {
 
-        userDTOList.add(user);
-
+        try {
+            userDTOList.add(user);
+        }
+        catch (Exception e)
+        {
+            throw new DALException(e.getMessage());
+        }
     }
 
     @Override
@@ -95,9 +100,12 @@ public class UserDAO implements IUserDAO {
         for (int i = 0; i<userList.size(); i++) {
             if (getUser(i).getUserId() == userId) {
                 userDTOList.remove(i);
-                break;
+                return;
             }
         }
+        
+        // If userId not found throw DALException
+        throw new DALException("UserID not found");
 
     }
 
