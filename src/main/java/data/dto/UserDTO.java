@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class UserDTO implements Serializable {
+public class UserDTO implements Serializable, Comparable<UserDTO> {
 
 	// ---------------------- Fields ----------------------
 
@@ -112,8 +112,7 @@ public class UserDTO implements Serializable {
 	public void removeRole(String role){
 		roles.remove(role);
 	}
-
-
+	
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", userName=" + userName + ", ini=" + ini + ", roles=" + roles + "]";
@@ -134,10 +133,13 @@ public class UserDTO implements Serializable {
 		}
 		return charTypeCounter;
 	}
-
-
-
-
+	
+	@Override
+	public int compareTo(UserDTO o)
+	{
+		return this.getUserId() - o.getUserId();
+	}
+	
 	// ------------------- SUPPORT METHODS --------------------
 
 	/**

@@ -11,7 +11,7 @@ public class UserDAO implements IUserDAO {
 
     // ----------------- FIELDS ---------------
 
-    List<UserDTO> userDTOList;
+    private List<UserDTO> userDTOList;
 
     // ------------- CONSTRUCTOR -----------------
 
@@ -79,7 +79,8 @@ public class UserDAO implements IUserDAO {
                 break;
             }
         }
-		userDTOList.sort(Collections.reverseOrder());
+        // Sort the list
+		userDTOList.sort(null);
     }
 
 
@@ -90,6 +91,7 @@ public class UserDAO implements IUserDAO {
         for (int i = 0; i<userList.size(); i++) {
             if (getUser(i).getUserId() == userId) {
                 userDTOList.remove(i);
+                break;
             }
         }
 
