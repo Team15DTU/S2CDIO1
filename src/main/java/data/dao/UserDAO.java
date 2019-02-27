@@ -85,11 +85,14 @@ public class UserDAO implements IUserDAO {
             {
                 // Remove and add update UserDTO object
                 userDTOList.remove(i); userDTOList.add(user);
-                break;
+                // Sort the list
+                userDTOList.sort(null);
+                return;
             }
         }
-        // Sort the list
-		userDTOList.sort(null);
+        
+        // Throw new DALException if no ID match
+        throw new DALException("updateUser failure, Can't match ID's");
     }
 
 
