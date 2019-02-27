@@ -3,6 +3,7 @@ package data.dao;
 import data.dto.UserDTO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -77,8 +78,8 @@ public class UserDAO implements IUserDAO {
                 userDTOList.remove(i); userDTOList.add(user);
                 break;
             }
-            
         }
+		userDTOList.sort(Collections.reverseOrder());
     }
 
 
