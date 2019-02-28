@@ -44,8 +44,13 @@ public class SwitchLogic {
 
         int userID;
         try {
-            int lastIndex = iUserDAO.getUserList().size()-1;
-            userID = iUserDAO.getUserList().get(lastIndex).getUserId()+1;
+            if (iUserDAO.getUserList().size()==0) {
+                userID = 1;
+            } else {
+                int lastIndex = iUserDAO.getUserList().size()-1;
+                userID = iUserDAO.getUserList().get(lastIndex).getUserId()+1;
+            }
+
         }catch (IUserDAO.DALException ex){
             System.out.println(ex);
             userID = -1;
