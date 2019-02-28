@@ -56,7 +56,7 @@ public class SwitchLogic {
             userID = -1;
         }
 
-        UserDTO user = new UserDTO(userID,userName,ini, cpr,userRole );
+        UserDTO user = new UserDTO(userID,userName,ini.toUpperCase(), cpr,userRole );
 
         try {
             iUserDAO.createUser(user);
