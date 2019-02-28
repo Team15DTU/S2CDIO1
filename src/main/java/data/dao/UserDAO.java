@@ -98,9 +98,8 @@ public class UserDAO implements IUserDAO {
     @Override
     public void deleteUser(int userId) throws DALException {
 
-        List userList = getUserList();
-        for (int i = 0; i<userList.size(); i++) {
-            if (getUser(i).getUserId() == userId) {
+        for (int i = 0; i < userDTOList.size(); i++) {
+            if (userDTOList.get(i).getUserId() == userId) {
                 userDTOList.remove(i);
                 return;
             }
