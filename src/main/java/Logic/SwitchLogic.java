@@ -158,7 +158,7 @@ public class SwitchLogic {
 
             UserDTO userDTOToCheck = iUserDAO.getUser(userIDToCheck);
             userNameOnUserToCheck = userDTOToCheck.getUserName();
-            noOfCharsPassed = userDTOToCheck.checkAndEachTypeOfCharInPassword(userDTOToCheck.getPassword());
+            noOfCharsPassed = userDTOToCheck.checkCharType(userDTOToCheck.getPassword());
 
         } catch (IUserDAO.DALException e) {
             System.out.println(e);

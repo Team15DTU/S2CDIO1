@@ -1,7 +1,5 @@
 package data.dto;
 
-import data.dao.UserDAO;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +116,7 @@ public class UserDTO implements Serializable, Comparable<UserDTO> {
 		return "UserDTO [userId=" + userId + ", userName=" + userName + ", ini=" + ini + ", roles=" + roles + "]";
 	}
 
-	public int[] checkAndEachTypeOfCharInPassword (String password) {
+	public int[] checkCharType(String password) {
 		int[] charTypeCounter = {0,0,0};
 
 		for (int i = 0; i < password.length(); i++) {
@@ -167,7 +165,7 @@ public class UserDTO implements Serializable, Comparable<UserDTO> {
 			}
 		}
 
-		int[] charTypeCounter = checkAndEachTypeOfCharInPassword(passwordBuilder.toString());
+		int[] charTypeCounter = checkCharType(passwordBuilder.toString());
 
 		// Hvis der ikke er nogle tal, så tilføjes et tal.
 		if (charTypeCounter[0] == 0) {
