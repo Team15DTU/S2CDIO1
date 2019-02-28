@@ -101,6 +101,7 @@ public class FileDBController implements IUserDAO {
     }
 
     public void shutdown () {
+
         writer.writeToFile(fileDB.getFileHashMap());
         writer.setFilePath(writer.getFilePath().replace( "/src/main/resources/","/target/classes/"));
         writer.writeToFile(fileDB.getFileHashMap());

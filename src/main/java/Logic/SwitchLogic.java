@@ -1,5 +1,6 @@
 package Logic;
 
+import data.File.FileDBController;
 import data.dao.IUserDAO;
 import data.dto.UserDTO;
 
@@ -189,7 +190,13 @@ public class SwitchLogic {
 
     public void shutdown () {
 
-        iUserDAO.shutdown();
+        if (iUserDAO instanceof FileDBController) {
+
+            ((FileDBController) iUserDAO).shutdown();
+
+        }
+
+        System.out.println("\n Bye Bye...");
 
     }
 

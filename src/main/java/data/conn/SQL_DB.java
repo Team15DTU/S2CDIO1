@@ -118,10 +118,6 @@ public class SQL_DB implements IUserDAO {
         }
 	}
 
-	@Override
-	public void shutdown () {
-
-    }
 
 	//endregion
 
