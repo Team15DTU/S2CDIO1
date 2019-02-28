@@ -56,7 +56,7 @@ public class TUI {
         switch (choice) {
             // 1. Add New User.
             case "1":
-                SL.AddUser();
+                SL.createUser();
                 break;
 
             // 2. Show Users.
