@@ -25,7 +25,7 @@ public class TUI {
         while (true) {
             Scanner scan = new Scanner(System.in);
             startMenu();
-            int choice = scan.nextInt();
+            String choice = scan.next();
             TheSwitch(choice);
         }
     }
@@ -49,39 +49,39 @@ public class TUI {
      */
 
 
-    private void TheSwitch(int choice) {
+    private void TheSwitch(String choice) {
 
         SwitchLogic SL = new SwitchLogic(DB_interface);
 
         switch (choice) {
             // 1. Add New User.
-            case 1:
+            case "1":
                 SL.AddUser();
                 break;
 
             // 2. Show Users.
-            case 2:
+            case "2":
                 SL.showUsers();
                 break;
 
             // 3. Update User.
-            case 3:
+            case "3":
                 SL.update();
                 break;
 
             // 4. Delete User.
-            case 4:
+            case "4":
                 SL.delete();
                 break;
 
             // 5. Close the program.
-            case 5:
+            case "5":
                 SL.shutdown();
                 System.exit(0);
                 break;
 
             // 6. Check Password for a User.
-            case 6:
+            case "6":
                 SL.checkPassword();
                 break;
 
