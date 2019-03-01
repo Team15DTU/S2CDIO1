@@ -1,9 +1,14 @@
-/**
- * @author Rasmus Sander Larsen
- */
-public class main {
+import TUI.TUI;
+import data.Database.DBController;
 
-    public static void main(String[] args) {
+public class main {
+    public static void main(String[] args)  {
+
+        DBController dbController = new DBController();
+        dbController.startUpAndRunDBSelector();
+
+        TUI textUserInterface = new TUI(dbController.getDB());
+        textUserInterface.TUI();
 
     }
 }
